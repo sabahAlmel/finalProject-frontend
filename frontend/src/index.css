@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: Sevastian;
+  src: url("./assets/fonts/Sevastian.ttf");
+}
+
+.sevastian {
+  font-family: Sevastian !important;
+}
+
+* {
+  font-family: Varela round;
+}
+.logo {
+  padding-bottom: 8px;
+}
