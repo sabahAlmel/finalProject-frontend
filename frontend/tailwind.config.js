@@ -10,7 +10,7 @@ export default {
       colors: {
         customOrange: "#FE8769",
         customBeige: "#F8E4D5",
-        customDarkBlue: "#293767",
+        customDarkBlue: "#10172a",
         customMediumBlue: "#4A5EA3",
         customLightBlue: "#8B9EE0",
         customGreenBlue: "#A5CAD2",
