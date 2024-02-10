@@ -6,23 +6,30 @@ import AuthForm from "./pages/AuthForm";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Projects from "./pages/Projects";
-import Header from "./layout/Header";
+import Layout from "./layout/Layout";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Page403 from "./pages/Page403";
 
 function App() {
   return (
     <div>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/auth" element={<AuthForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/projects" element={<Projects />} />
-        {/* just who login can accesss these */}
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/createpost" element={<CreatePost />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/auth" element={<AuthForm />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route element={<ProtectedRoute role="admin" />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<ProtectedRoute role="any" />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/createpost" element={<CreatePost />} />
+          </Route>
+        </Route>
+        <Route path="/403" element={<Page403 />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

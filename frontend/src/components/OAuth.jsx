@@ -16,7 +16,6 @@ export default function OAuth() {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
-      console.log(resultsFromGoogle);
       const res = await fetchGoogle(resultsFromGoogle);
       if (res) {
         dispatch(signIn(res.user));

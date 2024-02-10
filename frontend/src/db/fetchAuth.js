@@ -66,7 +66,6 @@ export async function fetchGoogle(result) {
       }
     );
     if (data && data.data.token) {
-      console.log(data);
       localStorage.setItem("token", `Bearer ${data.data.token}`);
       return data.data;
     }
