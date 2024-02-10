@@ -29,7 +29,7 @@ function Header() {
     <Navbar className="border-b-2 ">
       <Link
         to="/"
-        className="self-center whitespace-nowrap lg:text-4xl sm:text-xl font-semibold dark:text-white "
+        className="self-center whitespace-nowrap text-2xl lg:text-4xl  font-semibold dark:text-white "
       >
         <span
           onMouseEnter={handleHover}
@@ -61,7 +61,7 @@ function Header() {
       </Button>
       <div className="flex gap-2 md:order-2">
         <Button
-          className="w-15 h-10 hidden sm:inline"
+          className="w-15 h-10 inline"
           color="gray"
           pill
           onClick={handleTheme}
@@ -82,6 +82,14 @@ function Header() {
                 {currentUser.email}
               </span>
             </Dropdown.Header>
+            {currentUser.role === "admin" && (
+              <>
+                <Link to={"/dashboard"}>
+                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                </Link>
+                <Dropdown.Divider />
+              </>
+            )}
             <Link to={"/profile"}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>

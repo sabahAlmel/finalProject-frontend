@@ -98,7 +98,10 @@ const AuthForm = () => {
         className={`${styles["form-container"]} ${styles["sign-up"]} flex-1`}
       >
         <h2 className="text-2xl m-4">Create an account</h2>
-        <form className="flex flex-col gap-4" onSubmit={handleSignUpSubmit}>
+        <form
+          className="flex flex-col gap-4 w-60"
+          onSubmit={handleSignUpSubmit}
+        >
           <div>
             <Label value="Your username" />
             <TextInput
@@ -161,7 +164,7 @@ const AuthForm = () => {
         className={`${styles["form-container"]} ${styles["sign-in"]} flex-1`}
       >
         <h2 className="text-2xl m-4">Sign In</h2>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4 w-60 " onSubmit={handleSubmit}>
           <div>
             <Label value="Your email" />
             <TextInput
@@ -184,7 +187,6 @@ const AuthForm = () => {
           </div>
           <Button
             gradientDuoTone="purpleToPink"
-            className="w-20"
             type="submit"
             disabled={loading}
           >
