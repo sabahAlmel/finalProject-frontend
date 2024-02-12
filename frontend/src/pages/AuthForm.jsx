@@ -67,7 +67,7 @@ const AuthForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(signInFailure("Please fill all the fields"));
+      return setErrorMessage("Please fill all the fields");
     }
     try {
       setLoading(true);

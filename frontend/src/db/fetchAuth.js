@@ -21,20 +21,6 @@ export async function fetchSignUp(formData) {
   }
 }
 
-export async function fetchUser() {
-  try {
-    const data = await axios.get(
-      `${import.meta.env.VITE_BACKEND}users/readOne`
-    );
-    if (data) {
-      console.log(data);
-      return data.data.user;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export async function fetchLogin(formData) {
   try {
     const data = await axios.post(
