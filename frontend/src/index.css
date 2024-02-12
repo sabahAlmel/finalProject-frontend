@@ -3,12 +3,19 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: Sevastian;
-  src: url("./assets/fonts/Sevastian.ttf");
+  font-family: Cavolini;
+  src: url("./assets/fonts/CAVOLINI.TTF");
+}
+@font-face {
+  font-family: CavoliniBold;
+  src: url("./assets/fonts/CAVOLINIBOLD.TTF");
 }
 
-.sevastian {
-  font-family: Sevastian !important;
+.cavolini {
+  font-family: Cavolini !important;
+}
+.cavoliniBold {
+  font-family: CavoliniBold;
 }
 
 * {

@@ -14,6 +14,8 @@ import "react-circular-progressbar/dist/styles.css";
 import { fetchDeleteUser, fetchUpdateUser } from "../db/fetchUser";
 import { signIn, signout } from "../redux/user/userSlice";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { PiEyeClosedLight } from "react-icons/pi";
+import { PiEye } from "react-icons/pi";
 
 export default function DashProfile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -24,6 +26,7 @@ export default function DashProfile() {
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
+  const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
@@ -136,6 +139,10 @@ export default function DashProfile() {
     navigate("/");
   };
 
+  const handleShow = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
       <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
@@ -173,7 +180,7 @@ export default function DashProfile() {
           <img
             src={imageFileUrl || currentUser.profilePicture}
             alt="user"
-            className={`rounded-full w-full h-full object-cover border-8 border-customLightBlue ${
+            className={`rounded-full w-full h-full object-cover border-8 border-customGreenBlue ${
               imageFileUploadProgress &&
               imageFileUploadProgress < 100 &&
               "opacity-60"
@@ -199,21 +206,34 @@ export default function DashProfile() {
           defaultValue={currentUser.email}
           onChange={handleChange}
         />
-        <TextInput
-          type="password"
-          id="password"
-          placeholder="password"
-          name="password"
-          onChange={handleChange}
-        />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
+        <div className="relative">
+          <TextInput
+            type={open ? "text" : "password"}
+            id="password"
+            placeholder="password"
+            name="password"
+            onChange={handleChange}
+          />
+          {open ? (
+            <PiEyeClosedLight
+              className="absolute top-3 right-6"
+              onClick={handleShow}
+            />
+          ) : (
+            <PiEye className="absolute top-3 right-6" onClick={handleShow} />
+          )}
+        </div>
+        <Button
+          type="submit"
+          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue dark:text-white text-gray-700 rounded-md"
+          outline
+        >
           update
         </Button>
         <Link to={"/createpost"}>
           <Button
             type="button"
-            gradientDuoTone="purpleToPink"
-            className="w-full"
+            className="dark:text-white bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue text-gray-700 w-full"
           >
             Create a post
           </Button>

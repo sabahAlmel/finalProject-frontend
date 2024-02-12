@@ -6,13 +6,23 @@ import OAuth from "../components/OAuth";
 import { fetchLogin, fetchSignUp } from "../db/fetchAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../redux/user/userSlice";
+import { PiEyeClosedLight } from "react-icons/pi";
+import { PiEye } from "react-icons/pi";
 
 const AuthForm = () => {
   const { theme } = useSelector((state) => state.theme);
   const [isSignIn, setIsSignIn] = useState(true);
-
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [open, setOpen] = useState(false);
   const toggleForm = () => {
     setIsSignIn(!isSignIn);
+  };
+
+  const handleShowSignUp = () => {
+    setOpenSignUp(!openSignUp);
+  };
+  const handleShow = () => {
+    setOpen(!open);
   };
 
   // signUp
@@ -124,16 +134,29 @@ const AuthForm = () => {
           </div>
           <div>
             <Label value="Your password" />
-            <TextInput
-              type="password"
-              placeholder="Password"
-              id="passwordSignUp"
-              name="password"
-              onChange={handleSignUpChanges}
-            />
+            <div className="relative">
+              <TextInput
+                type={openSignUp ? "text" : "password"}
+                placeholder="Password"
+                id="passwordSignUp"
+                name="password"
+                onChange={handleSignUpChanges}
+              />
+              {openSignUp ? (
+                <PiEyeClosedLight
+                  className="absolute top-3 right-6"
+                  onClick={handleShowSignUp}
+                />
+              ) : (
+                <PiEye
+                  className="absolute top-3 right-6"
+                  onClick={handleShowSignUp}
+                />
+              )}
+            </div>
           </div>
           <Button
-            gradientDuoTone="purpleToPink"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue dark:text-white text-gray-700 rounded-md"
             type="submit"
             disabled={loadingSignUp}
           >
@@ -150,7 +173,10 @@ const AuthForm = () => {
         </form>
         <div className="flex gap-2 text-sm mt-5">
           <span>Have an account?</span>
-          <Link className="text-blue-500 " onClick={toggleForm}>
+          <Link
+            className="text-customMediumBlue font-semibold"
+            onClick={toggleForm}
+          >
             Sign In
           </Link>
         </div>
@@ -177,16 +203,29 @@ const AuthForm = () => {
           </div>
           <div>
             <Label value="Your password" />
-            <TextInput
-              type="password"
-              placeholder="**********"
-              id="password"
-              name="password"
-              onChange={handleChange}
-            />
+            <div className="relative">
+              <TextInput
+                type={open ? "text" : "password"}
+                placeholder="**********"
+                id="password"
+                name="password"
+                onChange={handleChange}
+              />
+              {open ? (
+                <PiEyeClosedLight
+                  className="absolute top-3 right-6"
+                  onClick={handleShow}
+                />
+              ) : (
+                <PiEye
+                  className="absolute top-3 right-6"
+                  onClick={handleShow}
+                />
+              )}
+            </div>
           </div>
           <Button
-            gradientDuoTone="purpleToPink"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue dark:text-white text-gray-700 rounded-md"
             type="submit"
             disabled={loading}
           >
@@ -203,7 +242,10 @@ const AuthForm = () => {
         </form>
         <div className="flex gap-2 text-sm mt-5">
           <span>Dont Have an account?</span>
-          <Link className="text-blue-500" onClick={toggleForm}>
+          <Link
+            className="text-customMediumBlue font-semibold"
+            onClick={toggleForm}
+          >
             Sign Up
           </Link>
         </div>

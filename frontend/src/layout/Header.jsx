@@ -6,17 +6,14 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../redux/user/userSlice";
 import { toggleTheme } from "../redux/theme/themeSlice";
-
+import Logo from "../components/Logo";
 function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const path = useLocation().pathname;
-  const [hover, setHover] = useState(false);
-  const handleHover = () => {
-    setHover(!hover);
-  };
+
   const handleTheme = () => {
     dispatch(toggleTheme());
   };
@@ -27,27 +24,7 @@ function Header() {
   };
   return (
     <Navbar className="border-b-2 ">
-      <Link
-        to="/"
-        className="self-center whitespace-nowrap text-2xl lg:text-4xl  font-semibold dark:text-white "
-      >
-        <span
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
-          className="sevastian"
-        >
-          PAREN
-        </span>
-        <span
-          className={`sevastian logo bg-gradient-to-r from-customLightBlue to-customGreenBlue text-white rounded-md ${
-            hover
-              ? " from-customGreenBlue to-customLightBlue"
-              : "hover:from-customGreenBlue hover:to-customLightBlue"
-          }`}
-        >
-          TOUCH
-        </span>
-      </Link>
+      <Logo />
       <form className="lg:text-4xl sm:text-xl">
         <TextInput
           type="text"
@@ -103,7 +80,7 @@ function Header() {
         ) : (
           <Link to="/auth">
             <Button
-              className="text-white bg-gradient-to-r from-customLightBlue to-customGreenBlue"
+              className="text-white bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
               outline
             >
               Sign In
