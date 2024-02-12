@@ -100,7 +100,7 @@ const AuthForm = () => {
 
   return (
     <div
-      className={`${
+      className={` ${
         theme === "light" ? styles.container : styles.containerDark
       } ${isSignIn ? "" : styles.active}`}
     >
@@ -156,7 +156,7 @@ const AuthForm = () => {
             </div>
           </div>
           <Button
-            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue dark:text-white text-gray-700 rounded-md"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue text-customDarkBlue rounded-md"
             type="submit"
             disabled={loadingSignUp}
           >
@@ -225,7 +225,7 @@ const AuthForm = () => {
             </div>
           </div>
           <Button
-            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue dark:text-white text-gray-700 rounded-md"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue text-customDarkBlue rounded-md"
             type="submit"
             disabled={loading}
           >

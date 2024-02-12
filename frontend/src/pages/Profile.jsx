@@ -144,8 +144,8 @@ export default function DashProfile() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-3 w-full">
-      <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
+    <div className="max-w-lg mx-auto my-32 p-3 w-full">
+      <h1 className=" text-center font-semibold text-3xl">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="file"
@@ -225,7 +225,7 @@ export default function DashProfile() {
         </div>
         <Button
           type="submit"
-          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue dark:text-white text-gray-700 rounded-md"
+          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue  text-customDarkBlue rounded-md"
           outline
         >
           update
@@ -233,7 +233,7 @@ export default function DashProfile() {
         <Link to={"/createpost"}>
           <Button
             type="button"
-            className="dark:text-white bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue text-gray-700 w-full"
+            className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue text-customDarkBlue w-full"
           >
             Create a post
           </Button>
