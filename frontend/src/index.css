@@ -10,7 +10,9 @@
   font-family: CavoliniBold;
   src: url("./assets/fonts/CAVOLINIBOLD.TTF");
 }
-
+body {
+  height: 100vh;
+}
 .cavolini {
   font-family: Cavolini !important;
 }
@@ -28,6 +30,12 @@
 }
 .logo {
   padding-bottom: 8px;
+}
+.ql-editor {
+  font-size: 1.05rem;
+}
+.ql-editor.ql-blank::before {
+  color: gray;
 }
 :root {
   --customOrange: "#FE8769";

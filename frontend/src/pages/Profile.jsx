@@ -225,7 +225,7 @@ export default function DashProfile() {
         </div>
         <Button
           type="submit"
-          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue  text-customDarkBlue rounded-md"
+          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue text-customDarkBlue rounded-md"
           outline
         >
           update
