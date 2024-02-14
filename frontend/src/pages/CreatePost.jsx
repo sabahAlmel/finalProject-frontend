@@ -184,6 +184,7 @@ export default function CreatePost() {
         <Button
           type="submit"
           className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:from-customGreenBlue hover:to-customPink text-customDarkBlue "
+          disabled={imageUploadProgress}
         >
           Add
         </Button>

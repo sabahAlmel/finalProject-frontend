@@ -16,8 +16,10 @@ import { signIn, signout } from "../redux/user/userSlice";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { PiEyeClosedLight } from "react-icons/pi";
 import { PiEye } from "react-icons/pi";
+import { fetchDeletePost, fetchUserPosts } from "../db/fetchPost";
+import { useQuery } from "react-query";
 
-export default function DashProfile() {
+export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -29,6 +31,10 @@ export default function DashProfile() {
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
+  const [showPostsError, setShowPostsError] = useState();
+  const [posts, setPosts] = useState();
+  const [deletePostModal, setDeletePostModal] = useState(false);
+  const [postId, setPostId] = useState();
   const filePickerRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -143,9 +149,51 @@ export default function DashProfile() {
     setOpen(!open);
   };
 
+  const {
+    isLoading,
+    data: postRes,
+    error: postsError,
+    refetch,
+  } = useQuery(
+    ["posts", currentUser._id],
+    () => fetchUserPosts(currentUser._id),
+    {
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+    }
+  );
+
+  const handleShowPosts = async () => {
+    setPosts(postRes?.data || []);
+    if (postsError) {
+      setShowPostsError(postsError);
+    }
+    if (postRes?.status === 200) {
+      setShowPostsError();
+
+      return;
+    }
+  };
+
+  const handleDeletePost = async (id) => {
+    try {
+      const res = await fetchDeletePost(id);
+      console.log(res);
+      if (res.status !== 200) {
+        console.log(res.message);
+        return;
+      }
+      refetch();
+      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
+      setDeletePostModal(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <div className="max-w-lg mx-auto my-32 p-3 w-full">
-      <h1 className=" text-center font-semibold text-3xl">Profile</h1>
+    <div className="max-w-lg mx-auto my-10 p-3 w-full">
+      <h1 className=" text-center mb-4 font-semibold text-3xl">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="file"
@@ -275,6 +323,91 @@ export default function DashProfile() {
                 Yes, I'm sure
               </Button>
               <Button color="gray" onClick={() => setShowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <button
+        onClick={handleShowPosts}
+        className="text-customMediumBlue mt-10 w-full"
+      >
+        Show Posts
+      </button>
+      {showPostsError && (
+        <Alert color="failure" className="mt-5">
+          {showPostsError}
+        </Alert>
+      )}
+      {posts &&
+        (posts.length > 0 ? (
+          <div className="flex flex-col gap-4">
+            <h1 className="text-center mt-7 text-2xl font-semibold">
+              Your Posts
+            </h1>
+            {posts.map((post) => (
+              <div
+                key={post._id}
+                className="border rounded-lg p-3 flex justify-between items-center gap-4"
+              >
+                <Link to={`/post/${post.slug}`}>
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-16 w-16 object-contain"
+                  />
+                </Link>
+                <Link
+                  className="text-slate-700 font-semibold  hover:underline truncate flex-1"
+                  to={`/post/${post.slug}`}
+                >
+                  <p>{post.title}</p>
+                </Link>
+                <div>
+                  <p>{post?.categoryId?.range}</p>
+                </div>
+                <div>
+                  <p>{post?.subCategoryId?.name}</p>
+                </div>
+                <div className="flex flex-col item-center">
+                  <button
+                    onClick={() => {
+                      setPostId(post._id);
+                      setDeletePostModal(true);
+                    }}
+                    className="text-red-700 uppercase"
+                  >
+                    Delete
+                  </button>
+                  <Link to={`/update-post/${post._id}`}>
+                    <button className="text-green-700 uppercase">Edit</button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="w-full mt-4 flex justify-center">No Posts Yet.</div>
+        ))}
+      <Modal
+        show={deletePostModal}
+        onClose={() => setDeletePostModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this post?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={() => handleDeletePost(postId)}>
+                Yes, I'm sure
+              </Button>
+              <Button color="gray" onClick={() => setDeletePostModal(false)}>
                 No, cancel
               </Button>
             </div>
