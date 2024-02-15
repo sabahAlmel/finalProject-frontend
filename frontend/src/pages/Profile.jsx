@@ -170,7 +170,6 @@ export default function Profile() {
     }
     if (postRes?.status === 200) {
       setShowPostsError();
-
       return;
     }
   };
@@ -178,7 +177,6 @@ export default function Profile() {
   const handleDeletePost = async (id) => {
     try {
       const res = await fetchDeletePost(id);
-      console.log(res);
       if (res.status !== 200) {
         console.log(res.message);
         return;

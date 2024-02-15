@@ -40,6 +40,30 @@ export async function fetchUserPosts(id) {
   }
 }
 
+export async function fetchPostsWithoutPagination() {
+  try {
+    const data = await axios.get(`${import.meta.env.VITE_BACKEND}posts/getall`);
+    if (data) {
+      return data.data.posts;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function fetchPostsPagination(index) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}posts/getall?startIndex=${index}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function fetchDeletePost(id) {
   try {
     const data = await axios.delete(
