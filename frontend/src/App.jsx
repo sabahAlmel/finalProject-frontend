@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Page403 from "./pages/Page403";
 import ScrollToTop from "./components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "react-query";
+import UpdatePost from "./pages/UpdatePost";
 const queryClient = new QueryClient();
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route element={<ProtectedRoute role="any" />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/createpost" element={<CreatePost />} />
+              <Route path="/update-post/:postId" element={<UpdatePost />} />
             </Route>
           </Route>
           <Route path="/403" element={<Page403 />} />

@@ -1,5 +1,29 @@
 import axios from "axios";
 
+export async function fetchUsersWithoutPagination() {
+  try {
+    const data = await axios.get(`${import.meta.env.VITE_BACKEND}users/getall`);
+    if (data) {
+      return data.data.users;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function fetchUsersPagination(startIndex) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}users/getall?startIndex=${startIndex}`
+    );
+    if (data) {
+      return data.data.users;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function fetchUpdateUser(userId, formData) {
   try {
     const data = await axios.put(

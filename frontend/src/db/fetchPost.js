@@ -50,6 +50,18 @@ export async function fetchPostsWithoutPagination() {
     return error.response;
   }
 }
+export async function fetchPostsWithPostId(postId) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}posts/getall?postId=${postId}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
 
 export async function fetchPostsPagination(index) {
   try {
@@ -76,6 +88,35 @@ export async function fetchDeletePost(id) {
       return data;
     }
   } catch (error) {
+    return error.response;
+  }
+}
+
+export async function fetchUpdatePost(id, formData) {
+  console.log(formData, id);
+  try {
+    const data = await axios.put(
+      `${import.meta.env.VITE_BACKEND}posts/updatepost/${id}`,
+      {
+        title: formData.title,
+        description: formData.description,
+        image: formData.image,
+        subCategoryId: formData.subCategoryId._id
+          ? formData.subCategoryId._id
+          : formData.subCategoryId,
+        categoryId: formData.categoryId._id
+          ? formData.categoryId._id
+          : formData.categoryId,
+      },
+      {
+        headers: { Authorization: localStorage.getItem("token") },
+      }
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    console.log("Error: ", error);
     return error.response;
   }
 }

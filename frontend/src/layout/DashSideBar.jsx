@@ -6,7 +6,6 @@ import {
   HiAnnotation,
   HiChartPie,
   HiFolder,
-  HiCollection,
 } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -61,17 +60,6 @@ export default function DashSidebar() {
             as="div"
           >
             Categories
-          </Sidebar.Item>
-        </Link>
-
-        <Link to="/dashboard?tab=subcategories">
-          <Sidebar.Item
-            active={tab === "subcategories"}
-            className="text-lg"
-            icon={HiCollection}
-            as="div"
-          >
-            SubCategories
           </Sidebar.Item>
         </Link>
 
