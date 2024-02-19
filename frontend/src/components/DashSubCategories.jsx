@@ -1,4 +1,4 @@
-import { Modal, Table, Button, TextInput } from "flowbite-react";
+import { Modal, Table, Button, TextInput, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useQuery } from "react-query";
@@ -32,7 +32,11 @@ export default function DashSubCategories() {
   }, [subCategoriesRes]);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="flex justify-center items-center min-h-screen mx-auto">
+        <Spinner size="xl" />
+      </div>
+    );
   }
 
   const handleChange = (e) => {
@@ -84,7 +88,7 @@ export default function DashSubCategories() {
   };
 
   return (
-    <div className="table-auto md:mx-auto p-3 ">
+    <div className="table-auto  p-3 ">
       <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All SubCategories
       </h1>
@@ -100,7 +104,7 @@ export default function DashSubCategories() {
       {subCategories &&
         (subCategories.length > 0 ? (
           <>
-            <Table hoverable className="shadow-md">
+            <Table hoverable className="shadow-md min-h-72">
               <Table.Head>
                 <Table.HeadCell>Date created</Table.HeadCell>
                 <Table.HeadCell>type</Table.HeadCell>

@@ -1,4 +1,4 @@
-import { Modal, Table, Button } from "flowbite-react";
+import { Modal, Table, Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useQuery } from "react-query";
@@ -34,7 +34,11 @@ export default function DashUsers() {
   }, [userRes]);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="flex justify-center items-center min-h-screen mx-auto">
+        <Spinner size="xl" />
+      </div>
+    );
   }
 
   const handleShowMore = async () => {
@@ -68,8 +72,8 @@ export default function DashUsers() {
   };
 
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      <h1 className="font-bold text-customMediumBlue my-7 text-center text-3xl">
+    <div className="table-auto w-full overflow-x-scroll mx-auto md:mx-2 lg:mx-10 p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All Users
       </h1>
       {user &&

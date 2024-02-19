@@ -24,6 +24,19 @@ export async function fetchUsersPagination(startIndex) {
   }
 }
 
+export async function fetchOneUser(userId) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}users/readOne/${userId}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function fetchUpdateUser(userId, formData) {
   try {
     const data = await axios.put(

@@ -4,7 +4,7 @@ import DashSidebar from "../layout/DashSideBar";
 import DashPosts from "../components/DashPosts";
 import DashUsers from "../components/DashUsers";
 import DashSubAndCategory from "./DashSubAndCategory";
-// import DashComments from '../components/DashComments';
+import DashComments from "../components/DashComments";
 // import DashboardComp from '../components/DashboardComp';
 
 export default function Dashboard() {
@@ -25,8 +25,8 @@ export default function Dashboard() {
       {tab === "posts" && <DashPosts />}
       {tab === "users" && <DashUsers />}
       {tab === "categories" && <DashSubAndCategory />}
-      {/*
       {tab === "comments" && <DashComments />}
+      {/*
       {tab === "dash" && <DashboardComp />} */}
     </div>
   );

@@ -1,4 +1,4 @@
-import { Modal, Table, Button, TextInput } from "flowbite-react";
+import { Modal, Table, Button, TextInput, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useQuery } from "react-query";
@@ -32,7 +32,11 @@ export default function DashCategories() {
   }, [categoriesRes]);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="flex justify-center items-center min-h-screen mx-auto">
+        <Spinner size="xl" />
+      </div>
+    );
   }
 
   const handleChange = (e) => {
@@ -82,7 +86,7 @@ export default function DashCategories() {
   };
 
   return (
-    <div className="table-auto md:mx-auto p-3 mb-10 xl:mr-60 ">
+    <div className="table-auto p-3 ">
       <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All Categories
       </h1>

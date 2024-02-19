@@ -1,4 +1,11 @@
-import { Alert, Button, Modal, ModalBody, TextInput } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Modal,
+  ModalBody,
+  TextInput,
+  Spinner,
+} from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -338,7 +345,12 @@ export default function Profile() {
           {showPostsError}
         </Alert>
       )}
-      {posts &&
+      {isLoading ? (
+        <div className="flex justify-center items-center min-h-screen">
+          <Spinner size="xl" />
+        </div>
+      ) : (
+        posts &&
         (posts.length > 0 ? (
           <div className="flex flex-col gap-4">
             <h1 className="text-center mt-7 text-2xl font-semibold">
@@ -357,7 +369,7 @@ export default function Profile() {
                   />
                 </Link>
                 <Link
-                  className="text-slate-700 font-semibold  hover:underline truncate flex-1"
+                  className="text-slate-700 dark:text-white font-semibold  hover:underline truncate flex-1"
                   to={`/post/${post.slug}`}
                 >
                   <p>{post.title}</p>
@@ -374,12 +386,14 @@ export default function Profile() {
                       setPostId(post._id);
                       setDeletePostModal(true);
                     }}
-                    className="text-red-700 uppercase"
+                    className="text-red-700 uppercase hover:underline"
                   >
                     Delete
                   </button>
                   <Link to={`/update-post/${post._id}`}>
-                    <button className="text-green-700 uppercase">Edit</button>
+                    <button className="text-customLightBlue uppercase hover:underline">
+                      Edit
+                    </button>
                   </Link>
                 </div>
               </div>
@@ -387,7 +401,9 @@ export default function Profile() {
           </div>
         ) : (
           <div className="w-full mt-4 flex justify-center">No Posts Yet.</div>
-        ))}
+        ))
+      )}
+
       <Modal
         show={deletePostModal}
         onClose={() => setDeletePostModal(false)}

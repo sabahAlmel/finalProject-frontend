@@ -76,6 +76,32 @@ export async function fetchPostsPagination(index) {
   }
 }
 
+export async function fetchPostSlug(slug) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}posts/getall?slug=${slug}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function fetchPostLimit(nb) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}posts/getall?limit=${nb}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function fetchDeletePost(id) {
   try {
     const data = await axios.delete(
@@ -108,6 +134,24 @@ export async function fetchUpdatePost(id, formData) {
           ? formData.categoryId._id
           : formData.categoryId,
       },
+      {
+        headers: { Authorization: localStorage.getItem("token") },
+      }
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+    return error.response;
+  }
+}
+
+export async function fetchRecommendPost(postId) {
+  try {
+    const data = await axios.put(
+      `${import.meta.env.VITE_BACKEND}posts/recommended/${postId}`,
+      null,
       {
         headers: { Authorization: localStorage.getItem("token") },
       }

@@ -114,6 +114,7 @@ export default function CreatePost() {
             }
           />
           <Select
+            style={{ cursor: "pointer" }}
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
@@ -126,6 +127,7 @@ export default function CreatePost() {
             ))}
           </Select>
           <Select
+            style={{ cursor: "pointer" }}
             onChange={(e) =>
               setFormData({ ...formData, subCategory: e.target.value })
             }

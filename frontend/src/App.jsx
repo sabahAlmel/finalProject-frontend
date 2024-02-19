@@ -5,7 +5,6 @@ import About from "./pages/About";
 import AuthForm from "./pages/AuthForm";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import Projects from "./pages/Projects";
 import Layout from "./layout/Layout";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
@@ -14,6 +13,7 @@ import Page403 from "./pages/Page403";
 import ScrollToTop from "./components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "react-query";
 import UpdatePost from "./pages/UpdatePost";
+import SinglePost from "./pages/SinglePost";
 const queryClient = new QueryClient();
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<AuthForm />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/post/:postSlug" element={<SinglePost />} />
             <Route element={<ProtectedRoute role="admin" />}>
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>

@@ -1,4 +1,4 @@
-import { Modal, Table, Button } from "flowbite-react";
+import { Modal, Table, Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -33,10 +33,6 @@ export default function DashPosts() {
     }
   }, [postRes]);
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
@@ -67,9 +63,17 @@ export default function DashPosts() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen mx-auto">
+        <Spinner size="xl" />
+      </div>
+    );
+  }
+
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      <h1 className="font-bold text-customMediumBlue my-7 text-center text-3xl">
+    <div className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All Posts
       </h1>
       {userPosts &&
@@ -83,12 +87,9 @@ export default function DashPosts() {
                 <Table.HeadCell>Range</Table.HeadCell>
                 <Table.HeadCell>Type</Table.HeadCell>
                 <Table.HeadCell>Delete</Table.HeadCell>
-                {/* <Table.HeadCell>
-                  <span>Edit</span>
-                </Table.HeadCell> */}
               </Table.Head>
               {userPosts.map((post) => (
-                <Table.Body className="divide-y">
+                <Table.Body key={post._id} className="divide-y">
                   <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                     <Table.Cell>
                       {new Date(post.updatedAt).toLocaleDateString()}
@@ -123,14 +124,6 @@ export default function DashPosts() {
                         Delete
                       </span>
                     </Table.Cell>
-                    {/* <Table.Cell>
-                      <Link
-                        className="text-customLightBlue hover:underline"
-                        to={`/update-post/${post._id}`}
-                      >
-                        <span>Edit</span>
-                      </Link>
-                    </Table.Cell> */}
                   </Table.Row>
                 </Table.Body>
               ))}
