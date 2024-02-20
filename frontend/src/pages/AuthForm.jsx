@@ -156,7 +156,7 @@ const AuthForm = () => {
             </div>
           </div>
           <Button
-            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue text-customDarkBlue rounded-md"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue  rounded-md"
             type="submit"
             disabled={loadingSignUp}
           >
@@ -225,7 +225,7 @@ const AuthForm = () => {
             </div>
           </div>
           <Button
-            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue text-customDarkBlue rounded-md"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue  rounded-md"
             type="submit"
             disabled={loading}
           >

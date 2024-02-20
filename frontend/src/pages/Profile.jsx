@@ -278,7 +278,7 @@ export default function Profile() {
         </div>
         <Button
           type="submit"
-          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue text-customDarkBlue rounded-md"
+          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue  rounded-md"
           outline
         >
           update
@@ -286,7 +286,7 @@ export default function Profile() {
         <Link to={"/createpost"}>
           <Button
             type="button"
-            className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue text-customDarkBlue w-full"
+            className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue w-full"
           >
             Create a post
           </Button>

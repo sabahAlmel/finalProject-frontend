@@ -28,7 +28,7 @@ export default function OAuth() {
   return (
     <Button
       type="button"
-      className="text-customDarkBlue bg-gradient-to-r from-customPink to-customGreenBlue"
+      className=" bg-gradient-to-r from-customPink to-customGreenBlue"
       outline
       onClick={handleGoogleClick}
     >

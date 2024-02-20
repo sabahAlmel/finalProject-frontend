@@ -148,7 +148,7 @@ export default function CreatePost() {
           />
           <Button
             type="button"
-            className=" bg-gradient-to-r from-customMediumBlue to-customGreenBlue text-customDarkBlue"
+            className=" bg-gradient-to-r from-customMediumBlue to-customGreenBlue "
             size="sm"
             outline
             onClick={handleUpdloadImage}
@@ -185,7 +185,7 @@ export default function CreatePost() {
         />
         <Button
           type="submit"
-          className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:from-customGreenBlue hover:to-customPink text-customDarkBlue "
+          className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:from-customGreenBlue hover:to-customPink  "
           disabled={imageUploadProgress}
         >
           Add

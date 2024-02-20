@@ -19,13 +19,7 @@ export default function FooterCom() {
             <div>
               <Footer.Title title="About" />
               <Footer.LinkGroup col>
-                <Footer.Link
-                  href="/about"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Tarbiya Tales
-                </Footer.Link>
+                <Footer.Link href="/about">Tarbiya Tales</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
@@ -49,6 +43,7 @@ export default function FooterCom() {
                 <Footer.Link
                   href="https://www.linkedin.com/in/sabah-almel"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   LinkedIn
                 </Footer.Link>

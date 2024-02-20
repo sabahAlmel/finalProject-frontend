@@ -70,6 +70,19 @@ export async function fetchAllComments() {
   }
 }
 
+export async function fetchCommentLimit(nb) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}comments/getcomments?limit=${nb}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function fetchPaginationComments(startIndex) {
   try {
     const data = await axios.get(

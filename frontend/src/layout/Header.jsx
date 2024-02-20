@@ -61,7 +61,7 @@ function Header() {
             </Dropdown.Header>
             {currentUser.role === "admin" && (
               <>
-                <Link to={"/dashboard"}>
+                <Link to={"/dashboard?tab=dash"}>
                   <Dropdown.Item>Dashboard</Dropdown.Item>
                 </Link>
                 <Dropdown.Divider />
