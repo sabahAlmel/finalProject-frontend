@@ -97,7 +97,7 @@ export default function CreatePost() {
     }
   };
   return (
-    <div className="p-3 max-w-3xl mx-auto my-32">
+    <section className="p-3 max-w-3xl mx-auto my-32">
       <h1 className="text-center mb-10 text-3xl font-semibold">
         Create a post
       </h1>
@@ -196,6 +196,6 @@ export default function CreatePost() {
           </Alert>
         )}
       </form>
-    </div>
+    </section>
   );
 }

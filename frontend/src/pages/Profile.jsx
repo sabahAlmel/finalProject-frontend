@@ -197,7 +197,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-lg mx-auto my-10 p-3 w-full">
+    <section className="max-w-lg mx-auto my-10 p-3 w-full">
       <h1 className=" text-center mb-4 font-semibold text-3xl">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
@@ -428,6 +428,6 @@ export default function Profile() {
           </div>
         </Modal.Body>
       </Modal>
-    </div>
+    </section>
   );
 }
