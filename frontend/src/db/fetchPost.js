@@ -102,6 +102,19 @@ export async function fetchPostLimit(nb) {
   }
 }
 
+export async function fetchSearchPost(search) {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_BACKEND}posts/getall?${search}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function fetchRecommendPostBySubCategory(subCategory, nb) {
   try {
     const data = await axios.get(

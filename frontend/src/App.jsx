@@ -14,6 +14,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "react-query";
 import UpdatePost from "./pages/UpdatePost";
 import SinglePost from "./pages/SinglePost";
+import Search from "./pages/Search";
 const queryClient = new QueryClient();
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<AuthForm />} />
             <Route path="/post/:postSlug" element={<SinglePost />} />
+            <Route path="/search" element={<Search />} />
             <Route element={<ProtectedRoute role="admin" />}>
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>

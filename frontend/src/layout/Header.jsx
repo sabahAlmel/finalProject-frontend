@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -25,17 +25,19 @@ function Header() {
   return (
     <Navbar className="border-b-2 ">
       <Logo />
-      <form className="lg:text-4xl sm:text-xl">
+      {/* <form className="lg:text-4xl sm:text-xl">
         <TextInput
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
           className="hidden lg:inline"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </form>
-      <Button className="w-15 h-10 lg:hidden" color="gray" pill>
+      </form> */}
+      {/* <Button className="w-15 h-10 lg:hidden" color="gray" pill>
         <AiOutlineSearch />
-      </Button>
+      </Button> */}
       <div className="flex gap-2 md:order-2">
         <Button
           className="w-15 h-10 inline"
@@ -98,6 +100,11 @@ function Header() {
         <Navbar.Link active={path === "/about"} as={"div"}>
           <Link to="/about" className="lg:text-2xl sm:text-xl">
             About
+          </Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === "/search"} as={"div"}>
+          <Link to="/search" className="lg:text-2xl sm:text-xl">
+            Posts
           </Link>
         </Navbar.Link>
       </Navbar.Collapse>
