@@ -23,7 +23,7 @@ function Header() {
     navigate("/");
   };
   return (
-    <Navbar className="border-b-2 ">
+    <Navbar className="border-b-2 headerNav">
       <Logo />
       {/* <form className="lg:text-4xl sm:text-xl">
         <TextInput
@@ -91,22 +91,22 @@ function Header() {
         )}
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link active={path === "/"} as={"div"}>
-          <Link to="/" className="lg:text-2xl sm:text-xl">
+      <Navbar.Collapse className="mobile">
+        <Link to="/" className="lg:text-2xl sm:text-xl">
+          <Navbar.Link active={path === "/"} as={"div"}>
             Home
-          </Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/about"} as={"div"}>
-          <Link to="/about" className="lg:text-2xl sm:text-xl">
+          </Navbar.Link>
+        </Link>
+        <Link to="/about" className="lg:text-2xl sm:text-xl">
+          <Navbar.Link active={path === "/about"} as={"div"}>
             About
-          </Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/search"} as={"div"}>
-          <Link to="/search" className="lg:text-2xl sm:text-xl">
+          </Navbar.Link>
+        </Link>
+        <Link to="/search" className="lg:text-2xl sm:text-xl">
+          <Navbar.Link active={path === "/search"} as={"div"}>
             Posts
-          </Link>
-        </Navbar.Link>
+          </Navbar.Link>
+        </Link>
       </Navbar.Collapse>
     </Navbar>
   );

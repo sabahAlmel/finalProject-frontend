@@ -10,6 +10,9 @@ import DashboardChart from "../components/DashboardChart";
 export default function Dashboard() {
   const location = useLocation();
   const [tab, setTab] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
@@ -17,16 +20,61 @@ export default function Dashboard() {
       setTab(tabFromUrl);
     }
   }, [location.search]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth > 768) {
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      <div className="md:w-56">
-        <DashSidebar />
+    <div className=" min-h-screen flex md:flex-row">
+      <div>
+        <DashSidebar
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setIsMobile={setIsMobile}
+          isMobile={isMobile}
+        />
       </div>
-      {tab === "posts" && <DashPosts />}
-      {tab === "users" && <DashUsers />}
-      {tab === "categories" && <DashSubAndCategory />}
-      {tab === "comments" && <DashComments />}
-      {tab === "dash" && <DashboardChart />}
+      {tab === "posts" && (
+        <DashPosts isMobile={isMobile} isOpen={isOpen} setIsOpen={setIsOpen} />
+      )}
+      {tab === "users" && (
+        <DashUsers isMobile={isMobile} isOpen={isOpen} setIsOpen={setIsOpen} />
+      )}
+      {tab === "categories" && (
+        <DashSubAndCategory
+          isMobile={isMobile}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
+      {tab === "comments" && (
+        <DashComments
+          isMobile={isMobile}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
+      {tab === "dash" && (
+        <DashboardChart
+          isMobile={isMobile}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
     </div>
   );
 }

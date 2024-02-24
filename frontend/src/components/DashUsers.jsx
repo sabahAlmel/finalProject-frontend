@@ -1,15 +1,16 @@
-import { Modal, Table, Button, Spinner } from "flowbite-react";
+import { Modal, Table, Button, Spinner, Select } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useQuery } from "react-query";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import {
   fetchDeleteUser,
+  fetchUpdateUser,
   fetchUsersPagination,
   fetchUsersWithoutPagination,
 } from "../db/fetchUser.js";
 
-export default function DashUsers() {
+export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
   const [user, setUser] = useState();
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -71,8 +72,25 @@ export default function DashUsers() {
     }
   };
 
+  const handleChange = async (value, role, id) => {
+    const res = await fetchUpdateUser(id, { role: value });
+    if (res.status === 200) {
+      refetch;
+      setUser((prev) => prev.map((user) => (user._id == id ? res.data : user)));
+    }
+  };
+
   return (
     <div className="table-auto w-full overflow-x-scroll mx-auto md:mx-2 lg:mx-10 p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      {isMobile && (
+        <Button
+          outline
+          className="md:hidden bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Open Sidebar
+        </Button>
+      )}
       <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All Users
       </h1>
@@ -104,11 +122,23 @@ export default function DashUsers() {
                     <Table.Cell>{user.username}</Table.Cell>
                     <Table.Cell>{user.email}</Table.Cell>
                     <Table.Cell>
-                      {user.role === "admin" ? (
-                        <FaCheck className="text-green-500" />
-                      ) : (
-                        <FaTimes className="text-red-500" />
-                      )}
+                      <Select
+                        style={{
+                          cursor: "pointer",
+                          color: user.role === "admin" ? "#3498db" : "#e74c3c",
+                        }}
+                        onChange={(e) =>
+                          handleChange(e.target.value, user.role, user._id)
+                        }
+                        value={user.role}
+                      >
+                        <option value="admin" className="text-white">
+                          Admin
+                        </option>
+                        <option value="user" className="text-white">
+                          User
+                        </option>
+                      </Select>
                     </Table.Cell>
                     <Table.Cell>
                       <span

@@ -209,7 +209,7 @@ export default function Search() {
         <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5 ">
           Posts results:
         </h1>
-        <div className="py-7 flex flex-wrap gap-4">
+        <div className="py-7 flex flex-wrap sm:justify-center gap-4">
           {!loading && posts.length === 0 && (
             <p className="text-xl text-gray-500">No posts found.</p>
           )}

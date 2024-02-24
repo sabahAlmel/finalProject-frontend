@@ -10,7 +10,7 @@ import {
 } from "../db/fetchComments";
 import { useQuery } from "react-query";
 
-export default function DashComments() {
+export default function DashComments({ isOpen, isMobile, setIsOpen }) {
   const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState([]);
   const [showMore, setShowMore] = useState(true);
@@ -76,6 +76,15 @@ export default function DashComments() {
 
   return (
     <div className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      {isMobile && (
+        <Button
+          outline
+          className="md:hidden bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Open Sidebar
+        </Button>
+      )}
       <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All comments
       </h1>
@@ -96,7 +105,9 @@ export default function DashComments() {
                   <Table.Cell>
                     {new Date(comment.updatedAt).toLocaleDateString()}
                   </Table.Cell>
-                  <Table.Cell>{comment.content}</Table.Cell>
+                  <Table.Cell className="line-clamp-5">
+                    {comment.content}
+                  </Table.Cell>
                   <Table.Cell>{comment.numberOfLikes}</Table.Cell>
                   <Table.Cell>{comment.postId.title}</Table.Cell>
                   <Table.Cell>{comment.userId.username}</Table.Cell>

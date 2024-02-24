@@ -8,7 +8,7 @@ import {
   fetchDeleteCategory,
   fetchUpdateCategory,
 } from "../db/fetchCategory";
-export default function DashCategories() {
+export default function DashCategories({ isOpen, isMobile, setIsOpen }) {
   const [categories, setCategories] = useState();
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -87,6 +87,15 @@ export default function DashCategories() {
 
   return (
     <div className="table-auto p-3 ">
+      {isMobile && (
+        <Button
+          outline
+          className="md:hidden bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Open Sidebar
+        </Button>
+      )}
       <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All Categories
       </h1>

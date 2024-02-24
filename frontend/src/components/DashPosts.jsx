@@ -9,7 +9,7 @@ import {
 } from "../db/fetchPost.js";
 import { useQuery } from "react-query";
 
-export default function DashPosts() {
+export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
   const [userPosts, setUserPosts] = useState();
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -73,6 +73,15 @@ export default function DashPosts() {
 
   return (
     <div className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      {isMobile && (
+        <Button
+          outline
+          className="md:hidden bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Open Sidebar
+        </Button>
+      )}
       <h1 className="font-bold text-customMediumBlue my-7 text-3xl">
         All Posts
       </h1>
@@ -105,7 +114,7 @@ export default function DashPosts() {
                     </Table.Cell>
                     <Table.Cell>
                       <Link
-                        className="font-medium text-gray-900 dark:text-white"
+                        className="font-medium text-gray-900 dark:text-white line-clamp-4"
                         to={`/post/${post.slug}`}
                       >
                         {post.title}

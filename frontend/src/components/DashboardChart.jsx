@@ -12,7 +12,7 @@ import { fetchPostLimit } from "../db/fetchPost";
 import { fetchUserLimit } from "../db/fetchUser";
 import { fetchCommentLimit } from "../db/fetchComments";
 
-export default function DashboardChart() {
+export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -67,8 +67,17 @@ export default function DashboardChart() {
     }
   }, [currentUser]);
   return (
-    <div className="p-3 mt-7 mx-auto md:mx-2 lg:mx-10 w-full justify-between">
-      <div className="flex-wrap flex gap-5 justify-center sm:mb-10 ">
+    <div className="p-3 mx-auto md:mx-2 lg:mx-10 w-full justify-between">
+      {isMobile && (
+        <Button
+          outline
+          className="md:hidden bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Open Sidebar
+        </Button>
+      )}
+      <div className="flex-wrap mt-7 flex gap-5 justify-center sm:mb-10 ">
         <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div>

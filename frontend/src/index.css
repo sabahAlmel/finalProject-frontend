@@ -90,6 +90,21 @@ body {
   }
 }
 
+@media (max-width: 767px) {
+  .mobile {
+    position: absolute;
+    top: 2.9rem;
+    left: 0;
+    z-index: 20;
+  }
+  .dark .headerNav ul {
+    background-color: #10172a;
+  }
+  .headerNav ul {
+    background-color: white;
+  }
+}
+
 :root {
   --customOrange: "#FE8769";
   --customBeige: "#F8E4D5";

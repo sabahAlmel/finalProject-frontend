@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({ post }) {
   return (
-    <div className="group relative w-full mx-4 border border-customMediumBlue hover:border-2 h-[350px] overflow-hidden rounded-lg sm:w-[350px] transition-all">
+    <div className="group relative w-full mx-4 border border-customMediumBlue hover:border-2 h-[350px] overflow-hidden rounded-lg sm:w-[350px] transition-all mb-6">
       <Link to={`/post/${post.slug}`}>
         <img
           src={post.image}
