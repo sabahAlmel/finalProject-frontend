@@ -81,7 +81,6 @@ export default function Profile() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
         setImageFileUploadProgress(progress.toFixed(0));
       },
       (error) => {
@@ -185,7 +184,6 @@ export default function Profile() {
     try {
       const res = await fetchDeletePost(id);
       if (res.status !== 200) {
-        console.log(res.message);
         return;
       }
       refetch();

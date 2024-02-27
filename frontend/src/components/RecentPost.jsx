@@ -7,7 +7,7 @@ function RecentPost() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetchPostLimit(4);
+        const res = await fetchPostLimit(16);
         if (res.status === 200) {
           setRecentPosts(res.data.posts);
         }

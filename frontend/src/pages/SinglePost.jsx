@@ -1,6 +1,6 @@
 import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   fetchPostLimit,
   fetchPostSlug,
@@ -11,7 +11,7 @@ import PostCard from "../components/PostCard";
 import { FaHeart, FaRegComment, FaRegHeart, FaVolumeUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-export default function SinglePost() {
+export default function SinglePost({socket}) {
   const { currentUser } = useSelector((state) => state.user);
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
@@ -24,6 +24,7 @@ export default function SinglePost() {
   const [hover, setHover] = useState(false);
   const [numberComments, setNumberComments] = useState(0);
   const [speech, setSpeech] = useState(false);
+  let navigate = useNavigate();
 
   useEffect(() => {
     setSpeech("speechSynthesis" in window);
@@ -178,6 +179,8 @@ export default function SinglePost() {
         dangerouslySetInnerHTML={{ __html: post && post.description }}
       ></div>
       <CommentSection
+      socket={socket}
+      userPost={post.userId.username}
         postId={post._id}
         setNumber={setNumberComments}
         number={numberComments}

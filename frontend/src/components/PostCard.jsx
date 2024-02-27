@@ -11,7 +11,7 @@ export default function PostCard({ post }) {
         />
       </Link>
       <div className="p-3 flex flex-col gap-2">
-        <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
+        <p className="text-lg font-semibold line-clamp-1">{post.title}</p>
         <div className="flex justify-between">
           <span className="italic text-sm">{post.categoryId?.range}</span>
           <span className="italic text-sm">{post.subCategoryId?.name}</span>

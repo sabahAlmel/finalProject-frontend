@@ -61,7 +61,6 @@ export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
     try {
       const res = await fetchDeleteUser(id);
       if (res.status !== 200) {
-        console.log(res.message);
         return;
       } else {
         setUser((prev) => prev.filter((user) => user._id !== id));

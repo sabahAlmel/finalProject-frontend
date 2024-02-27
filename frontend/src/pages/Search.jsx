@@ -140,7 +140,7 @@ export default function Search() {
       <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
           <div className="flex   items-center gap-2">
-            <label className="whitespace-nowrap font-semibold">
+            <label className="whitespace-nowrap w-28 font-semibold">
               Search Term:
             </label>
             <TextInput
@@ -152,14 +152,14 @@ export default function Search() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold">Sort:</label>
+            <label className="font-semibold w-28">Sort:</label>
             <Select onChange={handleChange} value={formData.sort} id="sort">
               <option value="desc">Latest</option>
               <option value="asc">Oldest</option>
             </Select>
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold">Range:</label>
+            <label className="font-semibold w-28">Range:</label>
             <Select
               style={{ cursor: "pointer" }}
               onChange={handleChange}
@@ -175,7 +175,7 @@ export default function Search() {
             </Select>
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold">Type:</label>
+            <label className="font-semibold w-28">Type:</label>
             <Select
               style={{ cursor: "pointer" }}
               onChange={handleChange}

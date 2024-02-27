@@ -15,11 +15,9 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const getUser = async () => {
     try {
       const res = await fetchOneUser(comment.userId);
-      if (res.status === 200) {
-        setUser(res.data);
-      }
+      setUser(res.data);
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   };
 
@@ -97,7 +95,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                 onClick={() => onLike(comment._id)}
                 className={`text-gray-400 hover:text-blue-500 ${
                   currentUser &&
-                  comment.likes.includes(currentUser._id) &&
+                  comment?.likes?.includes(currentUser._id) &&
                   "!text-blue-500"
                 }`}
               >
@@ -123,7 +121,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               {currentUser &&
               ((currentUser && currentUser.role === "admin") ||
                 currentUser._id === comment.userId ||
-                currentUser._id === comment.postId.userId._id) ? (
+                currentUser._id === comment.postId.userId) ? (
                 <button
                   type="button"
                   onClick={() => onDelete(comment._id)}

@@ -1,4 +1,11 @@
-import { Alert, Button, Modal, TextInput, Textarea } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Modal,
+  Spinner,
+  TextInput,
+  Textarea,
+} from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,9 +17,21 @@ import {
   fetchLikeComment,
   fetchPostComments,
 } from "../db/fetchComments";
+import { toast } from "react-toastify";
+// import { io } from "socket.io-client";
+// const socket = io(`${import.meta.env.VITE_BACKEND}`, {
+//   reconnection: true,
+// });
 
-export default function CommentSection({ postId, setNumber, number }) {
+export default function CommentSection({
+  postId,
+  socket,
+  setNumber,
+  number,
+  userPost,
+}) {
   const { currentUser } = useSelector((state) => state.user);
+
   // one comment content
   const [comment, setComment] = useState("");
   const [commentError, setCommentError] = useState(null);
@@ -20,21 +39,57 @@ export default function CommentSection({ postId, setNumber, number }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    socket.on("new-comment", async (data) => {
+      setComments(data);
+      setNumber(data.length);
+    });
+    // socket.on("notification", (data) => {
+    //   if (
+    //     currentUser.username === userPost &&
+    //     currentUser.username != data.user
+    //   ) {
+    //     console.log(`${data.user} ${data.message}`);
+    //     // alert(`${data.user} ${data.message}`);
+    //   }
+    // });
+  });
+  useEffect(() => {
+    socket.on("notification", (data) => {
+      if (
+        currentUser.username === userPost &&
+        currentUser.username != data.user
+      ) {
+        // console.log(`${data.user} ${data.message}`);
+        toast(`${data.user} ${data.message}`);
+      }
+    });
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 200) {
+    setLoading(true);
+    if (comment.length > 200 || comment.length <= 0) {
+      setLoading(false);
       return;
     }
     try {
-      const res = await fetchCreateComment(comment, postId, currentUser._id);
+      const res = await fetchCreateComment(comment, postId, currentUser);
       if (res.status === 200) {
+        setLoading(false);
         setComment("");
         setCommentError(null);
         setNumber(number + 1);
         setComments([res.data, ...comments]);
+        socket.emit("comment", {
+          comments: [res.data, ...comments],
+          user: currentUser.username,
+        });
       }
     } catch (error) {
+      setLoading(false);
       setCommentError(error.message);
     }
   };
@@ -52,6 +107,9 @@ export default function CommentSection({ postId, setNumber, number }) {
       }
     };
     getComments();
+    return () => {
+      socket.off("new-comment");
+    };
   }, [postId]);
 
   const handleLike = async (commentId) => {
@@ -89,6 +147,13 @@ export default function CommentSection({ postId, setNumber, number }) {
     );
   };
 
+  useEffect(() => {
+    socket.on("delete-comment", (data) => {
+      setComments(data[1]);
+      setNumber(data[1].length);
+    });
+  });
+
   const handleDelete = async (commentId) => {
     setShowModal(false);
     try {
@@ -100,6 +165,12 @@ export default function CommentSection({ postId, setNumber, number }) {
       if (res.status === 200) {
         setComments(comments.filter((comment) => comment._id !== commentId));
         setNumber(number - 1);
+        socket.emit("comment", {
+          comments: [
+            res.data,
+            comments.filter((comment) => comment._id !== commentId),
+          ],
+        });
       }
     } catch (error) {
       console.log(error.message);
@@ -163,7 +234,7 @@ export default function CommentSection({ postId, setNumber, number }) {
       )}
       {comments.length === 0 ? (
         <p className="text-sm my-5">No comments yet!</p>
-      ) : (
+      ) : !loading ? (
         <>
           <div className="text-sm my-5 flex items-center gap-1">
             <p>Comments</p>
@@ -184,6 +255,10 @@ export default function CommentSection({ postId, setNumber, number }) {
             />
           ))}
         </>
+      ) : (
+        <div className="flex justify-center items-center min-h-screen mx-auto">
+          <Spinner size="xl" />
+        </div>
       )}
       <Modal
         show={showModal}

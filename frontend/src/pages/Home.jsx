@@ -12,8 +12,8 @@ function Home() {
       <HeroSection />
       <RecentPost />
       <RecommendedEducation />
-      <RecommendedFood />
-      <RecommendedActivity />
+      {/* <RecommendedFood />
+      <RecommendedActivity /> */}
       <div className="w-full flex justify-center">
         <Link
           to={"/search"}

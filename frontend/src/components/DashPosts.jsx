@@ -52,7 +52,6 @@ export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
     try {
       const res = await fetchDeletePost(id);
       if (res.status !== 200) {
-        console.log(res.message);
         return;
       } else {
         setUserPosts((prev) => prev.filter((post) => post._id !== id));

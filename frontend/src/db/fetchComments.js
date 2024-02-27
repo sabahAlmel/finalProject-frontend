@@ -7,7 +7,7 @@ export async function fetchCreateComment(comment, postId, currentUser) {
       {
         content: comment,
         postId: postId,
-        userId: currentUser,
+        userId: currentUser._id,
       },
       {
         headers: { Authorization: localStorage.getItem("token") },
