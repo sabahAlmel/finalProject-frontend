@@ -6,6 +6,7 @@ import { fetchSearchPost } from "../db/fetchPost";
 import { fetchCategories } from "../db/fetchCategory";
 import { fetchSubCategories } from "../db/fetchSubCategory";
 import { useQuery } from "react-query";
+import { HiChevronDoubleUp } from "react-icons/hi";
 
 export default function Search() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,23 @@ export default function Search() {
     category: "",
     subCategory: "",
   });
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -83,6 +101,13 @@ export default function Search() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
@@ -137,9 +162,12 @@ export default function Search() {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
-        <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-          <div className="flex   items-center gap-2">
+      <div className="p-7 md:border-r md:min-h-screen border-gray-200">
+        <form
+          className="flex flex-col gap-8 sticky top-[50px]"
+          onSubmit={handleSubmit}
+        >
+          <div className="flex items-center gap-2">
             <label className="whitespace-nowrap w-28 font-semibold">
               Search Term:
             </label>
@@ -206,7 +234,7 @@ export default function Search() {
         </form>
       </div>
       <div className="w-full">
-        <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5 ">
+        <h1 className="text-3xl font-semibold sm:border-b border-gray-200 p-3 mt-5 ">
           Posts results:
         </h1>
         <div className="py-7 flex flex-wrap sm:justify-center gap-4">
@@ -227,6 +255,11 @@ export default function Search() {
           )}
         </div>
       </div>
+      {scrolled && (
+        <div className="scroll" onClick={scrollToTop}>
+          <HiChevronDoubleUp/>
+        </div>
+      )}
     </div>
   );
 }

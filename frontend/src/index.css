@@ -104,6 +104,23 @@ body {
     background-color: white;
   }
 }
+.scroll {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #758eb7;
+  color: #fff;
+  padding: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.scroll:hover {
+  background-color: #a5cad2;
+}
+button.slick-arrow {
+  display: none !important;
+}
 
 :root {
   --customOrange: "#FE8769";

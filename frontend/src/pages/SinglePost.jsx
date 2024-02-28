@@ -30,23 +30,6 @@ export default function SinglePost({socket}) {
     setSpeech("speechSynthesis" in window);
   }, []);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 100) {
-  //       console.log("hii");
-  //       setScrolled(true);
-  //     } else {
-  //       setScrolled(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {

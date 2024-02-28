@@ -15,6 +15,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import UpdatePost from "./pages/UpdatePost";
 import SinglePost from "./pages/SinglePost";
 import Search from "./pages/Search";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const queryClient = new QueryClient();
 import { io } from "socket.io-client";
 const socket = io(`${import.meta.env.VITE_BACKEND}`, {

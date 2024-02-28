@@ -14,7 +14,7 @@ function Home() {
       <RecommendedEducation />
       {/* <RecommendedFood />
       <RecommendedActivity /> */}
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center mb-10">
         <Link
           to={"/search"}
           className="text-xl text-customMediumBlue hover:underline"

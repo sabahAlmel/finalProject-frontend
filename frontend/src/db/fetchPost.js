@@ -115,12 +115,10 @@ export async function fetchSearchPost(search) {
   }
 }
 
-export async function fetchRecommendPostBySubCategory(subCategory, nb) {
+export async function fetchRecommendPostBySubCategory(nb) {
   try {
     const data = await axios.get(
-      `${
-        import.meta.env.VITE_BACKEND
-      }posts/getRecommendedPost?subCategoryName=${subCategory}&limit=${nb}`
+      `${import.meta.env.VITE_BACKEND}posts/getRecommendedPost?limit=${nb}`
     );
     if (data) {
       return data;
