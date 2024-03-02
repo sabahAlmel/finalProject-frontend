@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HeroSection from "../components/HeroSection";
 import RecentPost from "../components/RecentPost";
-import RecommendedEducation from "../components/RecommendedEducation";
-import RecommendedFood from "../components/RecommendedFood";
-import RecommendedActivity from "../components/RecommendedActivity";
+import Recommendation from "../components/Recommendation";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -11,15 +9,13 @@ function Home() {
     <div>
       <HeroSection />
       <RecentPost />
-      <RecommendedEducation />
-      {/* <RecommendedFood />
-      <RecommendedActivity /> */}
+      <Recommendation />
       <div className="w-full flex justify-center mb-10">
         <Link
           to={"/search"}
           className="text-xl text-customMediumBlue hover:underline"
         >
-          View all posts
+          View all articles
         </Link>
       </div>
     </div>

@@ -11,12 +11,14 @@ import { Link } from "react-router-dom";
 import { fetchPostLimit } from "../db/fetchPost";
 import { fetchUserLimit } from "../db/fetchUser";
 import { fetchCommentLimit } from "../db/fetchComments";
+import { FaRegHeart } from "react-icons/fa";
 
 export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [totalRecommendations, setTotalRecommendations] = useState(0);
   const [totalPosts, setTotalPosts] = useState(0);
   const [totalComments, setTotalComments] = useState(0);
   const [lastMonthUsers, setLastMonthUsers] = useState(0);
@@ -38,11 +40,16 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
     };
     const fetchPosts = async () => {
       try {
+        let tLikes = 0;
         const res = await fetchPostLimit(5);
         if (res.status === 200) {
           setPosts(res.data.posts);
+          res.data.posts.map((post) => {
+            tLikes += post.nbOfRecommendation;
+          });
           setTotalPosts(res.data.totalPosts);
           setLastMonthPosts(res.data.lastMonthPosts);
+          setTotalRecommendations(tLikes);
         }
       } catch (error) {
         console.log(error.message);
@@ -77,7 +84,7 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
           Open Sidebar
         </Button>
       )}
-      <div className="flex-wrap mt-7 flex gap-5 justify-center sm:mb-10 ">
+      <div className="flex flex-wrap gap-[4rem] py-3 mx-auto justify-center sm:mb-10">
         <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div>
@@ -127,6 +134,19 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
             </span>
             <div className="text-gray-500">Last month</div>
           </div>
+        </div>
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+          <div className="flex justify-between">
+            <div>
+              <h3 className="text-gray-500 text-md uppercase">
+                Total Recommendations
+              </h3>
+              <p className="text-2xl">{totalRecommendations}</p>
+            </div>
+
+            <FaRegHeart className=" bg-customPurple  text-white rounded-full text-5xl p-3 shadow-lg" />
+          </div>
+          <div className="flex  gap-2 text-sm"></div>
         </div>
       </div>
       <div className="flex flex-wrap gap-5 py-3 mx-auto justify-center ">

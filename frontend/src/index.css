@@ -103,6 +103,10 @@ body {
   .headerNav ul {
     background-color: white;
   }
+  .dark .headerHome ul,
+  .headerHome ul {
+    background-color: transparent;
+  }
 }
 .scroll {
   position: fixed;
@@ -120,6 +124,55 @@ body {
 }
 button.slick-arrow {
   display: none !important;
+}
+
+.headerNav {
+  transition: 0.3s all ease-in-out;
+}
+
+.headerHome {
+  background-color: transparent;
+  z-index: 50;
+  position: absolute;
+  width: 100%;
+  border: none;
+}
+.dark .headerHome {
+  background-color: transparent !important;
+  z-index: 50;
+  position: absolute;
+  width: 100%;
+  border: none;
+}
+.dark .headerHome li div {
+  color: rgb(55 65 81);
+}
+.dark .headerHome ul a:first-of-type li div {
+  color: white;
+}
+.dark .headerHome .group,
+.headerHome .group {
+  color: white;
+  background-color: transparent;
+}
+.headerHome .group {
+  background-color: transparent;
+}
+.headerHome button[data-testid="flowbite-navbar-toggle"] {
+  color: white;
+}
+.headerHome button[data-testid="flowbite-navbar-toggle"]:hover {
+  background-color: rgb(55 65 81);
+}
+
+.scrollProfile::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 96vw;
+  }
 }
 
 :root {

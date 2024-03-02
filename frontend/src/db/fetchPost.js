@@ -115,10 +115,25 @@ export async function fetchSearchPost(search) {
   }
 }
 
-export async function fetchRecommendPostBySubCategory(nb) {
+export async function fetchMostRecommendPost(nb) {
   try {
     const data = await axios.get(
       `${import.meta.env.VITE_BACKEND}posts/getRecommendedPost?limit=${nb}`
+    );
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function fetchRecommendPostByCategory(categoryId, nb) {
+  try {
+    const data = await axios.get(
+      `${
+        import.meta.env.VITE_BACKEND
+      }posts/getRecommendedByCategory?categoryId=${categoryId}&limit=${nb}`
     );
     if (data) {
       return data;

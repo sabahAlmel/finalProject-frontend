@@ -25,7 +25,7 @@ const socket = io(`${import.meta.env.VITE_BACKEND}`, {
 });
 
 function App() {
-  console.clear();
+  // console.clear();
   return (
     <QueryClientProvider client={queryClient}>
       <ScrollToTop />
@@ -35,7 +35,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<AuthForm />} />
-            <Route path="/post/:postSlug" element={<SinglePost socket={socket}/>} />
+            <Route
+              path="/post/:postSlug"
+              element={<SinglePost socket={socket} />}
+            />
             <Route path="/search" element={<Search />} />
             <Route element={<ProtectedRoute role="admin" />}>
               <Route path="/dashboard" element={<Dashboard />} />

@@ -48,7 +48,7 @@ export default function DashComments({ isOpen, isMobile, setIsOpen }) {
       const res = await fetchPaginationComments(startIndex);
       if (res.status === 200) {
         setComments((prev) => [...prev, ...res.data.comments]);
-        if (res.data.comments.length < 9) {
+        if (res.data.comments.length <= 9) {
           setShowMore(false);
         }
       }

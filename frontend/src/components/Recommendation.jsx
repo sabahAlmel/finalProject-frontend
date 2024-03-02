@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
-import { fetchRecommendPostBySubCategory } from "../db/fetchPost";
+import { fetchMostRecommendPost } from "../db/fetchPost";
 import Slider from "react-slick";
 
-function RecommendedEducation() {
+function Recommendation() {
   const [recentPosts, setRecentPosts] = useState(null);
   const settings = {
     dots: true,
@@ -41,7 +41,7 @@ function RecommendedEducation() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetchRecommendPostBySubCategory(10);
+        const res = await fetchMostRecommendPost(10);
         if (res.status === 200) {
           setRecentPosts(res.data);
         }
@@ -54,7 +54,7 @@ function RecommendedEducation() {
   return (
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className="text-3xl mt-5 mb-10">Recommended</h1>
-      <Slider {...settings} style={{ width: "97%", height: "370px" }}>
+      <Slider {...settings} style={{ width: "83%", height: "370px" }}>
         {recentPosts &&
           recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
       </Slider>
@@ -62,4 +62,4 @@ function RecommendedEducation() {
   );
 }
 
-export default RecommendedEducation;
+export default Recommendation;

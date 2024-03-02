@@ -20,7 +20,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { fetchDeleteUser, fetchUpdateUser } from "../db/fetchUser";
 import { signIn, signout } from "../redux/user/userSlice";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { HiOutlineExclamationCircle, HiPencil, HiTrash } from "react-icons/hi";
 import { PiEyeClosedLight } from "react-icons/pi";
 import { PiEye } from "react-icons/pi";
 import { fetchDeletePost, fetchUserPosts } from "../db/fetchPost";
@@ -168,7 +168,9 @@ export default function Profile() {
       refetchOnWindowFocus: true,
     }
   );
-
+  useEffect(() => {
+    setPosts(postRes?.data || []);
+  }, [postRes]);
   const handleShowPosts = async () => {
     setPosts(postRes?.data || []);
     if (postsError) {
@@ -194,120 +196,218 @@ export default function Profile() {
     }
   };
 
+  if (isLoading) {
+    <div className="flex justify-center items-center min-h-screen">
+      <Spinner size="xl" />
+    </div>;
+  }
+
   return (
-    <section className="max-w-lg mx-auto my-10 p-3 w-full">
-      <h1 className=" text-center mb-4 font-semibold text-3xl">Profile</h1>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          ref={filePickerRef}
-          hidden
-        />
-        <div
-          className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full"
-          onClick={() => filePickerRef.current.click()}
+    <section className="flex justify-around flex-col lg:flex-row  w-full mx-auto my-16 p-3">
+      <div
+        className={`  ${
+          posts && posts.length > 0 ? "lg:w-[50%] lg:mr-5 w-full" : "w-full"
+        } `}
+      >
+        <h1 className=" text-center mb-4 font-semibold text-3xl">Profile</h1>
+        <form
+          className="flex w-[90%] md:w-[60%]  mx-auto flex-col gap-4"
+          onSubmit={handleSubmit}
         >
-          {imageFileUploadProgress && (
-            <CircularProgressbar
-              value={imageFileUploadProgress || 0}
-              text={`${imageFileUploadProgress}%`}
-              strokeWidth={5}
-              styles={{
-                root: {
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                },
-                path: {
-                  stroke: `rgba(74 ,94 ,163, ${imageFileUploadProgress / 100})`,
-                },
-              }}
-            />
-          )}
-          <img
-            src={imageFileUrl || currentUser.profilePicture}
-            alt="user"
-            className={`rounded-full w-full h-full object-cover border-8 border-customGreenBlue ${
-              imageFileUploadProgress &&
-              imageFileUploadProgress < 100 &&
-              "opacity-60"
-            }`}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={filePickerRef}
+            hidden
           />
-        </div>
-        {imageFileUploadError && (
-          <Alert color="failure">{imageFileUploadError}</Alert>
-        )}
-        <TextInput
-          type="text"
-          id="username"
-          name="username"
-          placeholder="username"
-          defaultValue={currentUser.username}
-          onChange={handleChange}
-        />
-        <TextInput
-          type="email"
-          id="email"
-          name="email"
-          placeholder="email"
-          defaultValue={currentUser.email}
-          onChange={handleChange}
-        />
-        <div className="relative">
+          <div
+            className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full"
+            onClick={() => filePickerRef.current.click()}
+          >
+            {imageFileUploadProgress && (
+              <CircularProgressbar
+                value={imageFileUploadProgress || 0}
+                text={`${imageFileUploadProgress}%`}
+                strokeWidth={5}
+                styles={{
+                  root: {
+                    width: "100%",
+                    height: "100%",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                  },
+                  path: {
+                    stroke: `rgba(74 ,94 ,163, ${
+                      imageFileUploadProgress / 100
+                    })`,
+                  },
+                }}
+              />
+            )}
+            <img
+              src={imageFileUrl || currentUser.profilePicture}
+              alt="user"
+              className={`rounded-full w-full h-full object-cover border-8 border-customGreenBlue ${
+                imageFileUploadProgress &&
+                imageFileUploadProgress < 100 &&
+                "opacity-60"
+              }`}
+            />
+          </div>
+          {imageFileUploadError && (
+            <Alert color="failure">{imageFileUploadError}</Alert>
+          )}
           <TextInput
-            type={open ? "text" : "password"}
-            id="password"
-            placeholder="password"
-            name="password"
+            type="text"
+            id="username"
+            name="username"
+            placeholder="username"
+            defaultValue={currentUser.username}
             onChange={handleChange}
           />
-          {open ? (
-            <PiEyeClosedLight
-              className="absolute top-3 right-6"
-              onClick={handleShow}
+          <TextInput
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email"
+            defaultValue={currentUser.email}
+            onChange={handleChange}
+          />
+          <div className="relative">
+            <TextInput
+              type={open ? "text" : "password"}
+              id="password"
+              placeholder="password"
+              name="password"
+              onChange={handleChange}
             />
-          ) : (
-            <PiEye className="absolute top-3 right-6" onClick={handleShow} />
-          )}
-        </div>
-        <Button
-          type="submit"
-          className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue  rounded-md"
-          outline
-        >
-          update
-        </Button>
-        <Link to={"/createpost"}>
+            {open ? (
+              <PiEyeClosedLight
+                className="absolute top-3 right-6"
+                onClick={handleShow}
+              />
+            ) : (
+              <PiEye className="absolute top-3 right-6" onClick={handleShow} />
+            )}
+          </div>
           <Button
-            type="button"
-            className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue w-full"
+            type="submit"
+            className="bg-gradient-to-r from-customMediumBlue to-customGreenBlue  rounded-md"
+            outline
           >
-            Create a post
+            update
           </Button>
-        </Link>
-      </form>
-      <div className="text-red-500 flex justify-between mt-5">
-        <span className="cursor-pointer" onClick={() => setShowModal(true)}>
-          Delete Account
-        </span>
-        <span className="cursor-pointer" onClick={handleSignout}>
-          Sign Out
-        </span>
+          <Link to={"/createpost"}>
+            <Button
+              type="button"
+              className=" bg-gradient-to-r from-customPink to-customGreenBlue hover:to-customPink hover:from-customGreenBlue w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        </form>
+        <div className="text-red-500 w-[90%] md:w-[60%] mx-auto flex justify-between mt-5">
+          <span className="cursor-pointer" onClick={() => setShowModal(true)}>
+            Delete Account
+          </span>
+          <span className="cursor-pointer" onClick={handleSignout}>
+            Sign Out
+          </span>
+        </div>
+        {updateUserSuccess && (
+          <Alert color="success" className="mt-5">
+            {updateUserSuccess}
+          </Alert>
+        )}
+        {updateUserError && (
+          <Alert color="failure" className="mt-5">
+            {updateUserError}
+          </Alert>
+        )}
       </div>
-      {updateUserSuccess && (
-        <Alert color="success" className="mt-5">
-          {updateUserSuccess}
-        </Alert>
-      )}
-      {updateUserError && (
+
+      {/* <button
+        onClick={handleShowPosts}
+        className="text-customMediumBlue mt-10 w-full"
+      >
+        Show Posts
+      </button> */}
+      {showPostsError && (
         <Alert color="failure" className="mt-5">
-          {updateUserError}
+          {showPostsError}
         </Alert>
       )}
+      {posts &&
+        (posts.length > 0 ? (
+          <div className="flex scrollProfile overflow-y-auto max-h-[70vh] mx-auto lg:w-[50%] md:w-[60%] w-[90%] mt-20 lg:mt-0 flex-col gap-4">
+            <h1 className=" text-center mb-4 font-semibold text-3xl">
+              Your Articles
+            </h1>
+            <div className="w-full md:w-[95%] flex flex-col gap-8 lg:mr-8 mx-auto">
+              {posts.map((post) => (
+                <div
+                  key={post._id}
+                  className="border mx-auto rounded-lg p-3 w-full flex items-center gap-4"
+                >
+                  <Link to={`/post/${post.slug}`} className="w-[15%]">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-16 w-16 object-contain"
+                    />
+                  </Link>
+                  <div className="flex w-[80%] justify-center">
+                    <div className="flex  flex-col gap-1 w-[85%]">
+                      <div className="flex justify-between gap-8">
+                        <Link
+                          className="text-slate-700 dark:text-white font-semibold  hover:underline truncate line-clamp-1 flex-1"
+                          to={`/post/${post.slug}`}
+                        >
+                          <p>{post.title}</p>
+                        </Link>
+                        <div>
+                          <p>{post?.categoryId?.range}</p>
+                        </div>
+                        <div>
+                          <p>{post?.subCategoryId?.name}</p>
+                        </div>
+                      </div>
+                      <div
+                        className=" mx-auto w-full line-clamp-1"
+                        dangerouslySetInnerHTML={{
+                          __html: post && post.description,
+                        }}
+                      ></div>
+                    </div>
+
+                    <div className="flex sm:gap-3 sm:flex-row flex-col w-[15%] items-center ml-5 justify-center">
+                      <button
+                        onClick={() => {
+                          setPostId(post._id);
+                          setDeletePostModal(true);
+                        }}
+                        className="text-red-700 uppercase hover:underline"
+                      >
+                        <HiTrash size={30} />
+                      </button>
+                      <Link to={`/update-post/${post._id}`}>
+                        <button className="text-customLightBlue uppercase hover:underline">
+                          <HiPencil size={30} />
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="w-full mt-20 md:mt-4 flex justify-center items-center text-4xl ">
+            No articles Yet.
+          </div>
+        ))}
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
@@ -332,75 +432,6 @@ export default function Profile() {
           </div>
         </Modal.Body>
       </Modal>
-      <button
-        onClick={handleShowPosts}
-        className="text-customMediumBlue mt-10 w-full"
-      >
-        Show Posts
-      </button>
-      {showPostsError && (
-        <Alert color="failure" className="mt-5">
-          {showPostsError}
-        </Alert>
-      )}
-      {isLoading ? (
-        <div className="flex justify-center items-center min-h-screen">
-          <Spinner size="xl" />
-        </div>
-      ) : (
-        posts &&
-        (posts.length > 0 ? (
-          <div className="flex flex-col gap-4">
-            <h1 className="text-center mt-7 text-2xl font-semibold">
-              Your Posts
-            </h1>
-            {posts.map((post) => (
-              <div
-                key={post._id}
-                className="border rounded-lg p-3 flex justify-between items-center gap-4"
-              >
-                <Link to={`/post/${post.slug}`}>
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-16 w-16 object-contain"
-                  />
-                </Link>
-                <Link
-                  className="text-slate-700 dark:text-white font-semibold  hover:underline truncate flex-1"
-                  to={`/post/${post.slug}`}
-                >
-                  <p>{post.title}</p>
-                </Link>
-                <div>
-                  <p>{post?.categoryId?.range}</p>
-                </div>
-                <div>
-                  <p>{post?.subCategoryId?.name}</p>
-                </div>
-                <div className="flex flex-col item-center">
-                  <button
-                    onClick={() => {
-                      setPostId(post._id);
-                      setDeletePostModal(true);
-                    }}
-                    className="text-red-700 uppercase hover:underline"
-                  >
-                    Delete
-                  </button>
-                  <Link to={`/update-post/${post._id}`}>
-                    <button className="text-customLightBlue uppercase hover:underline">
-                      Edit
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="w-full mt-4 flex justify-center">No Posts Yet.</div>
-        ))
-      )}
 
       <Modal
         show={deletePostModal}
