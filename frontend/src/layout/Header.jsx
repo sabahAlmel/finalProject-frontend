@@ -11,6 +11,7 @@ function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
+  const location = useLocation();
   let navigate = useNavigate();
   const path = useLocation().pathname;
 
@@ -23,7 +24,7 @@ function Header() {
     navigate("/");
   };
   return (
-    <Navbar className="border-b-2 headerNav">
+    <Navbar className={`border-b-2 headerNav ${path=='/'? "headerHome":""} `}>
       <Logo />
       {/* <form className="lg:text-4xl sm:text-xl">
         <TextInput
@@ -40,7 +41,7 @@ function Header() {
       </Button> */}
       <div className="flex gap-2 md:order-2">
         <Button
-          className="w-15 h-10 inline"
+          className="w-15 h-10 mr-3 inline"
           color="gray"
           pill
           onClick={handleTheme}
@@ -63,9 +64,15 @@ function Header() {
             </Dropdown.Header>
             {currentUser.role === "admin" && (
               <>
-                <Link to={"/dashboard?tab=dash"}>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Link>
+                {location.pathname != "/dashboard" ? (
+                  <Link to={"/dashboard?tab=dash"}>
+                    <Dropdown.Item>Dashboard</Dropdown.Item>
+                  </Link>
+                ) : (
+                  <Link to={"/"}>
+                    <Dropdown.Item>Home</Dropdown.Item>
+                  </Link>
+                )}
                 <Dropdown.Divider />
               </>
             )}
@@ -91,23 +98,25 @@ function Header() {
         )}
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse className="mobile">
-        <Link to="/" className="lg:text-2xl sm:text-xl">
-          <Navbar.Link active={path === "/"} as={"div"}>
-            Home
-          </Navbar.Link>
-        </Link>
-        <Link to="/about" className="lg:text-2xl sm:text-xl">
-          <Navbar.Link active={path === "/about"} as={"div"}>
-            About
-          </Navbar.Link>
-        </Link>
-        <Link to="/search" className="lg:text-2xl sm:text-xl">
-          <Navbar.Link active={path === "/search"} as={"div"}>
-            Posts
-          </Navbar.Link>
-        </Link>
-      </Navbar.Collapse>
+      {location.pathname != "/dashboard" && (
+        <Navbar.Collapse className="mobile">
+          <Link to="/" className="lg:text-2xl sm:text-xl">
+            <Navbar.Link active={path === "/"} as={"div"}>
+              Home
+            </Navbar.Link>
+          </Link>
+          <Link to="/about" className="lg:text-2xl sm:text-xl">
+            <Navbar.Link active={path === "/about"} as={"div"}>
+              About
+            </Navbar.Link>
+          </Link>
+          <Link to="/search" className="lg:text-2xl sm:text-xl">
+            <Navbar.Link active={path === "/search"} as={"div"}>
+              Articles
+            </Navbar.Link>
+          </Link>
+        </Navbar.Collapse>
+      )}
     </Navbar>
   );
 }

@@ -88,7 +88,7 @@ export async function fetchPaginationComments(startIndex) {
     const data = await axios.get(
       `${
         import.meta.env.VITE_BACKEND
-      }comments/getPostComments?startIndex=${startIndex}`
+      }comments/getcomments?startIndex=${startIndex}`
     );
     if (data) {
       return data;

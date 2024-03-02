@@ -39,7 +39,7 @@ export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
       const res = await fetchPostsPagination(startIndex);
       if (res.status === 200) {
         setUserPosts((prev) => [...prev, ...data.posts]);
-        if (res.data.posts.length < 9) {
+        if (res.data.posts.length <= 9) {
           setShowMore(false);
         }
       }

@@ -16,6 +16,13 @@ export default function Search() {
     subCategory: "",
   });
   const [scrolled, setScrolled] = useState(false);
+  const [status, setStatus] = useState(false);
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,9 +40,37 @@ export default function Search() {
     };
   }, []);
 
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth > 768) {
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
+    };
+
+    // const handleScroll = () => {
+    //   const currentScrollPos = window.pageYOffset;
+    //   if (currentScrollPos > 10) {
+    //     setIsOpen(false);
+    //   }
+    // };
+
+    window.addEventListener("resize", handleResize);
+    // window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      // window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleSidebarItemClick = () => {
+    if (isMobile) {
+      setIsOpen(false);
+    }
+  };
 
   const location = useLocation();
 
@@ -109,6 +144,7 @@ export default function Search() {
   };
 
   const handleSubmit = (e) => {
+    setStatus(true);
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", formData.searchTerm);
@@ -121,7 +157,10 @@ export default function Search() {
 
   const resetFilters = (e) => {
     navigate(`/search`);
+    setStatus(false);
   };
+
+  useEffect(() => {}, []);
 
   const handleShowMore = async () => {
     const numberOfPosts = posts.length;
@@ -161,37 +200,59 @@ export default function Search() {
   );
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="p-7 md:border-r md:min-h-screen border-gray-200">
+    <div className="flex flex-col md:flex-row ">
+      <div
+        className="p-9 md:min-h-screen shadow-2xl dark:bg-customDarkBlue bg-white dark:shadow-slate-700 searchSide w-full fixed top-0 z-20 md:w-56 md:relative transition-all duration-1000"
+        style={{
+          top: isOpen ? "0 " : "-1000px",
+          width: isOpen ? (isMobile ? "100%" : "21rem") : "0",
+        }}
+      >
+        {isMobile && (
+          <div
+            className="w-full flex justify-end text-2xl"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            x
+          </div>
+        )}
         <form
           className="flex flex-col gap-8 sticky top-[50px]"
           onSubmit={handleSubmit}
         >
-          <div className="flex items-center gap-2">
-            <label className="whitespace-nowrap w-28 font-semibold">
-              Search Term:
+          <div className="flex items-center gap-2 ">
+            <label className="whitespace-nowrap w-14 font-semibold">
+              Search:
             </label>
             <TextInput
               placeholder="Search..."
               id="searchTerm"
               type="text"
+              className="w-52 md:w-40 "
               value={formData.searchTerm}
               onChange={handleChange}
             />
           </div>
-          <div className="flex items-center gap-2">
-            <label className="font-semibold w-28">Sort:</label>
-            <Select onChange={handleChange} value={formData.sort} id="sort">
+          <div className="flex items-center gap-2 ">
+            <label className="font-semibold w-14">Sort:</label>
+            <Select
+              style={{ cursor: "pointer" }}
+              onChange={handleChange}
+              value={formData.sort}
+              className="w-52 md:w-40 "
+              id="sort"
+            >
               <option value="desc">Latest</option>
               <option value="asc">Oldest</option>
             </Select>
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold w-28">Range:</label>
+            <label className="font-semibold w-14">Range:</label>
             <Select
               style={{ cursor: "pointer" }}
               onChange={handleChange}
               value={formData.category}
+              className="w-52 md:w-40 "
               id="category"
             >
               <option value="">Select a Range</option>
@@ -203,11 +264,12 @@ export default function Search() {
             </Select>
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold w-28">Type:</label>
+            <label className="font-semibold w-14">Type:</label>
             <Select
               style={{ cursor: "pointer" }}
               onChange={handleChange}
               value={formData.subCategory}
+              className="w-52 md:w-40 "
               id="subcategory"
             >
               <option value="">Select a Type</option>
@@ -234,12 +296,24 @@ export default function Search() {
         </form>
       </div>
       <div className="w-full">
-        <h1 className="text-3xl font-semibold sm:border-b border-gray-200 p-3 mt-5 ">
-          Posts results:
+        {isMobile && (
+          <Button
+            outline
+            className="md:hidden bg-gradient-to-r from-customMediumBlue to-customGreenBlue mt-5 mx-7 "
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            Search
+          </Button>
+        )}
+        <h1 className="text-3xl font-semibold sm:border-b dark:border-gray-700 p-3 mt-5 mx-4 ">
+          {status
+            ? ` Articles results for '${formData.searchTerm}':`
+            : "All Articles: "}
         </h1>
+
         <div className="py-7 flex flex-wrap sm:justify-center gap-4">
           {!loading && posts.length === 0 && (
-            <p className="text-xl text-gray-500">No posts found.</p>
+            <p className="text-xl text-gray-500">No articles found.</p>
           )}
           {loading && <p className="text-xl text-gray-500">Loading...</p>}
           {!loading &&
@@ -257,7 +331,7 @@ export default function Search() {
       </div>
       {scrolled && (
         <div className="scroll" onClick={scrollToTop}>
-          <HiChevronDoubleUp/>
+          <HiChevronDoubleUp />
         </div>
       )}
     </div>

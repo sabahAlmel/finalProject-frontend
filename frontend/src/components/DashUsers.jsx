@@ -48,7 +48,7 @@ export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
       const res = await fetchUsersPagination(startIndex);
       if (res.status === 200) {
         setUser((prev) => [...prev, ...data.users]);
-        if (res.data.users.length < 9) {
+        if (res.data.users.length <= 9) {
           setShowMore(false);
         }
       }
