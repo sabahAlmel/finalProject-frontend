@@ -7,6 +7,9 @@ import { fetchCategories } from "../db/fetchCategory";
 import { fetchSubCategories } from "../db/fetchSubCategory";
 import { useQuery } from "react-query";
 import { HiChevronDoubleUp } from "react-icons/hi";
+import icon from "../assets/icons/family.png";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 export default function Search() {
   const [formData, setFormData] = useState({
@@ -200,7 +203,16 @@ export default function Search() {
   );
 
   return (
-    <div className="flex flex-col md:flex-row ">
+    <motion.div
+      className="flex flex-col md:flex-row "
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Search</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <div
         className="p-9 md:min-h-screen shadow-2xl dark:bg-customDarkBlue bg-white dark:shadow-slate-700 searchSide w-full fixed top-0 z-20 md:w-56 md:relative transition-all duration-1000"
         style={{
@@ -311,7 +323,7 @@ export default function Search() {
             : "All Articles: "}
         </h1>
 
-        <div className="py-7 flex flex-wrap sm:justify-center gap-4">
+        <div className="py-7 flex flex-wrap px-3 gap-4">
           {!loading && posts.length === 0 && (
             <p className="text-xl text-gray-500">No articles found.</p>
           )}
@@ -334,6 +346,6 @@ export default function Search() {
           <HiChevronDoubleUp />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

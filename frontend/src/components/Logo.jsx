@@ -6,7 +6,7 @@ function Logo() {
   return (
     <Link
       to="/"
-      className=" flex self-center whitespace-nowrap text-[18px] sm:text-2xl font-semibold dark:text-white "
+      className=" flex items-center whitespace-nowrap text-sm sm:text-2xl font-semibold dark:text-white "
     >
       <span>
         <img src={family} alt="logo" className="w-70 h-70" />

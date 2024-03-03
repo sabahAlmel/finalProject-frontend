@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../redux/user/userSlice";
 import { PiEyeClosedLight } from "react-icons/pi";
 import { PiEye } from "react-icons/pi";
+import { Helmet } from "react-helmet-async";
+import icon from "../assets/icons/family.png";
+import { motion } from "framer-motion";
 
 const AuthForm = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -99,11 +102,18 @@ const AuthForm = () => {
   };
 
   return (
-    <div
+    <motion.div
       className={` ${
         theme === "light" ? styles.container : styles.containerDark
       } ${isSignIn ? "" : styles.active}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
+      <Helmet>
+        <title>Authentication</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <div
         className={`${styles["form-container"]} ${styles["sign-up"]} flex-1`}
       >
@@ -277,7 +287,7 @@ const AuthForm = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

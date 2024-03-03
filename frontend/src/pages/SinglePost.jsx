@@ -11,6 +11,9 @@ import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
 import { FaHeart, FaRegComment, FaRegHeart, FaVolumeUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import icon from "../assets/icons/family.png";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 export default function SinglePost({ socket }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -118,7 +121,15 @@ export default function SinglePost({ socket }) {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Single Article</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
         <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
           {post && post.title}
@@ -235,6 +246,6 @@ export default function SinglePost({ socket }) {
           )}
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }

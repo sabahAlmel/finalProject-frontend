@@ -24,7 +24,9 @@ function Header() {
     navigate("/");
   };
   return (
-    <Navbar className={`border-b-2 headerNav ${path=='/'? "headerHome":""} `}>
+    <Navbar
+      className={`border-b-2 headerNav ${path == "/" ? "headerHome" : ""} `}
+    >
       <Logo />
       {/* <form className="lg:text-4xl sm:text-xl">
         <TextInput
@@ -41,7 +43,7 @@ function Header() {
       </Button> */}
       <div className="flex gap-2 md:order-2">
         <Button
-          className="w-15 h-10 mr-3 inline"
+          className="w-15 h-10 sm:mr-3 inline"
           color="gray"
           pill
           onClick={handleTheme}
@@ -81,7 +83,7 @@ function Header() {
             </Link>
             <Dropdown.Divider />
             <Link to={"/createpost"}>
-              <Dropdown.Item>Create Post</Dropdown.Item>
+              <Dropdown.Item>Create Article</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
@@ -89,7 +91,7 @@ function Header() {
         ) : (
           <Link to="/auth">
             <Button
-              className="text-white bg-gradient-to-r from-customMediumBlue to-customGreenBlue"
+              className="text-white bg-gradient-to-r from-customMediumBlue to-customGreenBlue "
               outline
             >
               Sign In

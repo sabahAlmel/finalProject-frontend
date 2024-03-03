@@ -9,6 +9,7 @@ import {
   fetchPaginationComments,
 } from "../db/fetchComments";
 import { useQuery } from "react-query";
+import { motion } from "framer-motion";
 
 export default function DashComments({ isOpen, isMobile, setIsOpen }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -75,7 +76,12 @@ export default function DashComments({ isOpen, isMobile, setIsOpen }) {
   };
 
   return (
-    <div className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+    <motion.div
+      className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {isMobile && (
         <Button
           outline
@@ -162,6 +168,6 @@ export default function DashComments({ isOpen, isMobile, setIsOpen }) {
           </div>
         </Modal.Body>
       </Modal>
-    </div>
+    </motion.div>
   );
 }
