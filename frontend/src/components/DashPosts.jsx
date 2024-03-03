@@ -8,6 +8,7 @@ import {
   fetchPostsWithoutPagination,
 } from "../db/fetchPost.js";
 import { useQuery } from "react-query";
+import { motion } from "framer-motion";
 
 export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
   const [userPosts, setUserPosts] = useState();
@@ -38,7 +39,7 @@ export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
     try {
       const res = await fetchPostsPagination(startIndex);
       if (res.status === 200) {
-        setUserPosts((prev) => [...prev, ...data.posts]);
+        setUserPosts((prev) => [...prev, ...res.data.posts]);
         if (res.data.posts.length <= 9) {
           setShowMore(false);
         }
@@ -71,7 +72,12 @@ export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
   }
 
   return (
-    <div className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+    <motion.div
+      className="table-auto overflow-x-scroll  mx-auto md:mx-2 lg:mx-10 w-full p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {isMobile && (
         <Button
           outline
@@ -175,6 +181,6 @@ export default function DashPosts({ isOpen, isMobile, setIsOpen }) {
           </div>
         </Modal.Body>
       </Modal>
-    </div>
+    </motion.div>
   );
 }

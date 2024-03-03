@@ -1,9 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import icon from "../assets/icons/family.png";
+import { motion } from "framer-motion";
 
 function About() {
   return (
-    <div className="mb-10">
+    <motion.div
+      className="mb-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>About Us</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <div className=" w-[90vw] md:w-[50vw] flex flex-col gap-8 m-5 md:m-10">
         <h1 className="text-4xl font-semibold">OUR STORY</h1>
         <p className="text-2xl leading-8">
@@ -46,7 +58,7 @@ function About() {
           Thank you for being a part of the Tarbiatales family.
         </p>
       </div>
-      <div className="w-[100vw]">
+      <div className="w-[100%]">
         <Link
           to="/"
           className="p-10 block text-3xl transition-all duration-200 bg-customMediumBlue hover:bg-customPurple text-white border-b-2 border-b-white"
@@ -60,7 +72,7 @@ function About() {
           Write Article
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

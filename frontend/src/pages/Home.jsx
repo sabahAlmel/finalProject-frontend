@@ -3,10 +3,21 @@ import HeroSection from "../components/HeroSection";
 import RecentPost from "../components/RecentPost";
 import Recommendation from "../components/Recommendation";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import icon from "../assets/icons/family.png";
+import { motion } from "framer-motion";
 
 function Home() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Home</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <HeroSection />
       <RecentPost />
       <Recommendation />
@@ -18,7 +29,7 @@ function Home() {
           View all articles
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

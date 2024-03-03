@@ -12,6 +12,7 @@ import { fetchPostLimit } from "../db/fetchPost";
 import { fetchUserLimit } from "../db/fetchUser";
 import { fetchCommentLimit } from "../db/fetchComments";
 import { FaRegHeart } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
   const [users, setUsers] = useState([]);
@@ -74,7 +75,12 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
     }
   }, [currentUser]);
   return (
-    <div className="p-3 mx-auto md:mx-2 lg:mx-10 w-full justify-between">
+    <motion.div
+      className="p-3 mx-auto md:mx-2 lg:mx-10 w-full justify-between"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {isMobile && (
         <Button
           outline
@@ -149,7 +155,7 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
           <div className="flex  gap-2 text-sm"></div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-5 py-3 mx-auto justify-center ">
+      <div className="flex flex-wrap gap-[4rem] xl:gap-[7rem] py-3 mx-auto justify-center ">
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
           <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent users</h1>
@@ -253,6 +259,6 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
           </Table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

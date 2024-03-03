@@ -25,6 +25,9 @@ import { PiEyeClosedLight } from "react-icons/pi";
 import { PiEye } from "react-icons/pi";
 import { fetchDeletePost, fetchUserPosts } from "../db/fetchPost";
 import { useQuery } from "react-query";
+import { Helmet } from "react-helmet-async";
+import icon from "../assets/icons/family.png";
+import { motion } from "framer-motion";
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -203,7 +206,16 @@ export default function Profile() {
   }
 
   return (
-    <section className="flex justify-around flex-col lg:flex-row  w-full mx-auto my-16 p-3">
+    <motion.section
+      className="flex justify-around flex-col lg:flex-row  w-full mx-auto my-16 p-3"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Profile</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <div
         className={`  ${
           posts && posts.length > 0 ? "lg:w-[50%] lg:mr-5 w-full" : "w-full"
@@ -392,7 +404,7 @@ export default function Profile() {
                       >
                         <HiTrash size={30} />
                       </button>
-                      <Link to={`/update-post/${post._id}`}>
+                      <Link to={`/update-article/${post._id}`}>
                         <button className="text-customLightBlue uppercase hover:underline">
                           <HiPencil size={30} />
                         </button>
@@ -457,6 +469,6 @@ export default function Profile() {
           </div>
         </Modal.Body>
       </Modal>
-    </section>
+    </motion.section>
   );
 }

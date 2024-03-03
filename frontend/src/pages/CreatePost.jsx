@@ -16,6 +16,9 @@ import { fetchCategories } from "../db/fetchCategory";
 import { fetchSubCategories } from "../db/fetchSubCategory";
 import { useQuery } from "react-query";
 import { fetchCreatePost } from "../db/fetchPost";
+import icon from "../assets/icons/family.png";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -97,7 +100,16 @@ export default function CreatePost() {
     }
   };
   return (
-    <section className="p-3 max-w-3xl mx-auto my-32">
+    <motion.section
+      className="p-3 max-w-3xl mx-auto my-32"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Create Article</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <h1 className="text-center mb-10 text-3xl font-semibold">
         Create a post
       </h1>
@@ -196,6 +208,6 @@ export default function CreatePost() {
           </Alert>
         )}
       </form>
-    </section>
+    </motion.section>
   );
 }

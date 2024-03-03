@@ -15,8 +15,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import UpdatePost from "./pages/UpdatePost";
 import SinglePost from "./pages/SinglePost";
 import Search from "./pages/Search";
+import { HelmetProvider } from "react-helmet-async";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { AnimatePresence } from "framer-motion";
 
 const queryClient = new QueryClient();
 import { io } from "socket.io-client";
@@ -25,35 +27,41 @@ const socket = io(`${import.meta.env.VITE_BACKEND}`, {
 });
 
 function App() {
-  // console.clear();
   return (
-    <QueryClientProvider client={queryClient}>
-      <ScrollToTop />
-      <div>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/auth" element={<AuthForm />} />
-            <Route
-              path="/post/:postSlug"
-              element={<SinglePost socket={socket} />}
-            />
-            <Route path="/search" element={<Search />} />
-            <Route element={<ProtectedRoute role="admin" />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route>
-            <Route element={<ProtectedRoute role="any" />}>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/createpost" element={<CreatePost />} />
-              <Route path="/update-post/:postId" element={<UpdatePost />} />
-            </Route>
-          </Route>
-          <Route path="/403" element={<Page403 />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <ScrollToTop />
+        <div>
+          <AnimatePresence>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/auth" element={<AuthForm />} />
+                <Route
+                  path="/post/:postSlug"
+                  element={<SinglePost socket={socket} />}
+                />
+                <Route path="/search" element={<Search />} />
+                <Route element={<ProtectedRoute role="admin" />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
+                <Route element={<ProtectedRoute role="any" />}>
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/createpost" element={<CreatePost />} />
+                  <Route
+                    path="/update-article/:postId"
+                    element={<UpdatePost />}
+                  />
+                </Route>
+              </Route>
+              <Route path="/403" element={<Page403 />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AnimatePresence>
+        </div>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 

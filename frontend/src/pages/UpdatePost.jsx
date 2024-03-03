@@ -20,6 +20,9 @@ import {
   fetchPostsWithPostId,
   fetchUpdatePost,
 } from "../db/fetchPost";
+import icon from "../assets/icons/family.png";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 export default function UpdatePost() {
   const [file, setFile] = useState(null);
@@ -122,9 +125,18 @@ export default function UpdatePost() {
     }
   };
   return (
-    <div className="p-3 max-w-3xl mx-auto my-32">
+    <motion.div
+      className="p-3 max-w-3xl mx-auto my-32"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Update an Article</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <h1 className="text-center mb-10 text-3xl font-semibold">
-        Update a post
+        Update an Article
       </h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -223,6 +235,6 @@ export default function UpdatePost() {
           </Alert>
         )}
       </form>
-    </div>
+    </motion.div>
   );
 }

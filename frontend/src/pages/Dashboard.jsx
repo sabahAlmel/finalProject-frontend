@@ -6,6 +6,9 @@ import DashUsers from "../components/DashUsers";
 import DashSubAndCategory from "./DashSubAndCategory";
 import DashComments from "../components/DashComments";
 import DashboardChart from "../components/DashboardChart";
+import { motion } from "framer-motion";
+import icon from "../assets/icons/family.png";
+import { Helmet } from "react-helmet-async";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -39,7 +42,16 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className=" min-h-screen flex md:flex-row">
+    <motion.div
+      className=" min-h-screen flex md:flex-row"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Helmet>
+        <title>Dashboard</title>
+        <link rel="shortcut icon" href={icon} type="image/x-icon" />
+      </Helmet>
       <div>
         <DashSidebar
           isOpen={isOpen}
@@ -75,6 +87,6 @@ export default function Dashboard() {
           setIsOpen={setIsOpen}
         />
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -9,6 +9,7 @@ import {
   fetchUsersPagination,
   fetchUsersWithoutPagination,
 } from "../db/fetchUser.js";
+import { motion } from "framer-motion";
 
 export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
   const [user, setUser] = useState();
@@ -28,7 +29,7 @@ export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
   useEffect(() => {
     if (userRes) {
       setUser(userRes);
-      if (userRes?.length < 9) {
+      if (userRes?.length <= 9) {
         setShowMore(false);
       }
     }
@@ -80,7 +81,12 @@ export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
   };
 
   return (
-    <div className="table-auto w-full overflow-x-scroll mx-auto md:mx-2 lg:mx-10 p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+    <motion.div
+      className="table-auto w-full overflow-x-scroll mx-auto md:mx-2 lg:mx-10 p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {isMobile && (
         <Button
           outline
@@ -102,7 +108,7 @@ export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
                 <Table.HeadCell>User image</Table.HeadCell>
                 <Table.HeadCell>Username</Table.HeadCell>
                 <Table.HeadCell>Email</Table.HeadCell>
-                <Table.HeadCell>Admin</Table.HeadCell>
+                <Table.HeadCell>Role</Table.HeadCell>
                 <Table.HeadCell>Delete</Table.HeadCell>
               </Table.Head>
               {user.map((user) => (
@@ -193,6 +199,6 @@ export default function DashUsers({ isOpen, isMobile, setIsOpen }) {
           </div>
         </Modal.Body>
       </Modal>
-    </div>
+    </motion.div>
   );
 }
