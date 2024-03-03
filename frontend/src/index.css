@@ -43,16 +43,17 @@ body {
 }
 
 .post-content h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.7rem;
+  font-weight: bold;
   font-family: sans-serif;
   margin: 1.5rem 0;
 }
 
 .post-content h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-family: sans-serif;
   margin: 1.5rem 0;
+  font-weight: bold;
 }
 
 .post-content a {
