@@ -28,19 +28,6 @@ function Header() {
       className={`border-b-2 headerNav ${path == "/" ? "headerHome" : ""} `}
     >
       <Logo />
-      {/* <form className="lg:text-4xl sm:text-xl">
-        <TextInput
-          type="text"
-          placeholder="Search..."
-          rightIcon={AiOutlineSearch}
-          className="hidden lg:inline"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form> */}
-      {/* <Button className="w-15 h-10 lg:hidden" color="gray" pill>
-        <AiOutlineSearch />
-      </Button> */}
       <div className="flex gap-2 md:order-2">
         <Button
           className="w-15 h-10 sm:mr-3 inline"
@@ -89,13 +76,11 @@ function Header() {
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Link to="/auth">
-            <Button
-              className="text-white bg-gradient-to-r from-customMediumBlue to-customGreenBlue "
-              outline
-            >
-              Sign In
-            </Button>
+          <Link
+            to="/auth"
+            className="cursor-pointer text-white bg-gradient-to-r from-customMediumBlue to-customGreenBlue hover:from-customGreenBlue hover:to-customMediumBlue p-2 rounded-md "
+          >
+            Sign In
           </Link>
         )}
         <Navbar.Toggle />

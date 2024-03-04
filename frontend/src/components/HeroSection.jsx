@@ -39,7 +39,7 @@ function HeroSection() {
         {!currentUser ? (
           <Link
             to="/auth"
-            className="text-3xl font-semibold cursor-pointer bg-gradient-to-r from-customPink to-customPurple hover:from-customPurple hover:to-customPink p-2 rounded-md "
+            className="text-3xl font-semibold cursor-pointer bg-gradient-to-r from-customGreenBlue to-customMediumBlue hover:from-customMediumBlue hover:to-customGreenBlue p-2 rounded-md "
           >
             Start Here
           </Link>

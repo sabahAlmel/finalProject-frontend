@@ -175,12 +175,3 @@ button.slick-arrow {
     max-width: 96vw;
   }
 }
-
-:root {
-  --customOrange: "#FE8769";
-  --customBeige: "#F8E4D5";
-  --customDarkBlue: "#10172a";
-  --customMediumBlue: "#758EB7";
-  --customLightBlue: "#8B9EE0";
-  --customGreenBlue: "#A5CAD2";
-}
