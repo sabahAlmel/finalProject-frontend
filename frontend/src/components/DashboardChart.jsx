@@ -155,7 +155,7 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
           <div className="flex  gap-2 text-sm"></div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-[4rem] xl:gap-[7rem] py-3 mx-auto justify-center ">
+      <div className="flex flex-wrap gap-[2rem] xl:gap-[3rem] py-3 mx-auto justify-center ">
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
           <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent users</h1>
@@ -188,7 +188,7 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
               ))}
           </Table>
         </div>
-        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
+        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 ">
           <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent comments</h1>
             <Button
@@ -208,7 +208,7 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
                 <Table.Body key={comment._id} className="divide-y">
                   <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                     <Table.Cell>
-                      <p className="line-clamp-2">{comment.content}</p>
+                      <p className="line-clamp-2 max-w-56">{comment.content}</p>
                     </Table.Cell>
                     <Table.Cell>{comment.numberOfLikes}</Table.Cell>
                   </Table.Row>
@@ -245,7 +245,7 @@ export default function DashboardChart({ isMobile, setIsOpen, isOpen }) {
                       />
                     </Table.Cell>
                     <Table.Cell>
-                      <p className="line-clamp-2">{post.title}</p>
+                      <p className="line-clamp-2 max-w-32">{post.title}</p>
                     </Table.Cell>
                     <Table.Cell className="w-5">
                       {post.categoryId?.range}
