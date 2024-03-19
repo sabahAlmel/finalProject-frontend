@@ -60,7 +60,7 @@ function Recommendation() {
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className="text-3xl mt-5 mb-10">Recommended</h1>
       {loading ? (
-        <div className="flex">
+        <div className="flex flex-wrap">
           {[...Array(4)].map((_, index) => (
             <Skeleton key={index} />
           ))}
