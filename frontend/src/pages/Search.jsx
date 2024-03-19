@@ -178,9 +178,9 @@ export default function Search() {
     if (res.status === 200) {
       setPosts([...posts, ...res.data.posts]);
       if (res.data.posts.length <= 9) {
-        setShowMore(true);
-      } else {
         setShowMore(false);
+      } else {
+        setShowMore(true);
       }
     }
   };

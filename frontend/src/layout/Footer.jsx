@@ -5,6 +5,8 @@ import {
   BsTwitter,
   BsGithub,
   BsLinkedin,
+  BsEnvelope,
+  BsPhone,
 } from "react-icons/bs";
 import Logo from "../components/Logo";
 export default function FooterCom() {
@@ -26,28 +28,40 @@ export default function FooterCom() {
           <div className="mb-10 md:mb-0">
             <Footer.Title title="Contact Us" />
             <Footer.LinkGroup col>
-              <Footer.Link href="mailto:sabahalmel7@gmail.com">
-                Email
-              </Footer.Link>
-            </Footer.LinkGroup>
-          </div>
-          <div className="mb-10 md:mb-0">
-            <Footer.Title title="Follow us" />
-            <Footer.LinkGroup col>
-              <Footer.Link
-                href="https://github.com/sabahAlmel"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Github
-              </Footer.Link>
-              <Footer.Link
-                href="https://www.linkedin.com/in/sabah-almel"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </Footer.Link>
+              <div>
+                <div className="flex gap-3 items-center">
+                  <Footer.Icon
+                    href="mailto:sabahalmel7@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    icon={BsEnvelope}
+                  />{" "}
+                  <Footer.Link
+                    href="mailto:sabahalmel7@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Email
+                  </Footer.Link>
+                </div>
+              </div>
+              <div>
+                <div className="flex gap-3 items-center">
+                  <Footer.Icon
+                    href=" https://wa.me/+9613314520"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    icon={BsPhone}
+                  />
+                  <Footer.Link
+                    href=" https://wa.me/+9613314520"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Phone
+                  </Footer.Link>
+                </div>
+              </div>
             </Footer.LinkGroup>
           </div>
         </div>
@@ -59,12 +73,29 @@ export default function FooterCom() {
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
+            <Footer.Icon
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              icon={BsFacebook}
+            />
+            <Footer.Icon
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              icon={BsInstagram}
+            />
             <Footer.Icon href="#" icon={BsTwitter} />
-            <Footer.Icon href="https://github.com/sabahAlmel" icon={BsGithub} />
+            <Footer.Icon
+              href="https://github.com/sabahAlmel"
+              target="_blank"
+              rel="noopener noreferrer"
+              icon={BsGithub}
+            />
             <Footer.Icon
               href="https://www.linkedin.com/in/sabah-almel"
+              target="_blank"
+              rel="noopener noreferrer"
               icon={BsLinkedin}
             />
           </div>

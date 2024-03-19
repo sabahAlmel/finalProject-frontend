@@ -21,7 +21,7 @@ function About() {
       <div className="flex items-center">
         <div className=" w-[90vw] lg:w-[50vw] flex flex-col gap-8 m-5 md:m-10">
           <h1 className="text-4xl font-semibold">OUR STORY</h1>
-          <p className="text-2xl leading-8">
+          <p className="text-xl leading-8">
             At Tarbiatales, we believe that every parent has a unique story to
             share. In a digital landscape filled with noise and distractions,
             Tarbiatales is a serene sanctuary where heartfelt narratives and
@@ -29,7 +29,7 @@ function About() {
             more than just a blog; it's a tranquil oasis where the quiet power
             of shared experiences fosters connection, understanding, and growth.
           </p>
-          <p className="text-2xl leading-8">
+          <p className="text-xl leading-8">
             Parenting is a journey filled with moments of joy, challenges, and
             profound lessons. Amidst the chaos of everyday life, Tarbiatales
             provides a space for parents to pause, reflect, and share their
@@ -37,7 +37,7 @@ function About() {
             on the adventure of parenthood for the first time, Tarbiatales
             welcomes you to join our community of storytellers.
           </p>
-          <p className="text-2xl leading-8">
+          <p className="text-xl leading-8">
             In a world where quick soundbites and superficial content dominate,
             Tarbiatales stands as a beacon of depth, nuance, and meaningful
             dialogue. We believe in the transformative power of storytelling to
@@ -46,19 +46,19 @@ function About() {
             experiences that enriches our collective understanding of
             parenthood.
           </p>
-          <p className="text-2xl leading-8">
+          <p className="text-xl leading-8">
             Join us in celebrating the diversity of parenting journeys and the
             profound impact of authentic storytelling. Whether you're here to
             seek guidance, share your own experiences, or simply find solace in
             the stories of others, Tarbiatales invites you to be part of our
             nurturing community.
           </p>
-          <p className="text-2xl leading-8">
+          <p className="text-xl leading-8">
             Together, let's elevate the conversation around parenting, deepen
             our connections, and pave the way for a brighter, more informed
             future for families everywhere.
           </p>
-          <p className="text-2xl leading-8">
+          <p className="text-xl leading-8">
             Thank you for being a part of the Tarbiatales family.
           </p>
         </div>

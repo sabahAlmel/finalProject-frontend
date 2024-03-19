@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { fetchMostRecommendPost } from "../db/fetchPost";
 import Slider from "react-slick";
+import { Spinner } from "flowbite-react";
 
 function Recommendation() {
   const [recentPosts, setRecentPosts] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const settings = {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     pauseOnHover: true,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -41,9 +44,11 @@ function Recommendation() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
+        setLoading(true);
         const res = await fetchMostRecommendPost(10);
         if (res.status === 200) {
           setRecentPosts(res.data);
+          setLoading(false);
         }
       };
       fetchRecentPosts();
@@ -54,10 +59,18 @@ function Recommendation() {
   return (
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className="text-3xl mt-5 mb-10">Recommended</h1>
-      <Slider {...settings} style={{ width: "83%", height: "370px" }}>
-        {recentPosts &&
-          recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
-      </Slider>
+      {loading ? (
+        <div className="flex justify-center items-center mx-auto">
+          <Spinner size="xl" />
+        </div>
+      ) : (
+        <Slider {...settings} className="xl:w-[83%] w-[95%] h-[370px] mx-auto">
+          {recentPosts &&
+            recentPosts.map((post) => (
+              <PostCard key={post._id} post={post} home={true} />
+            ))}
+        </Slider>
+      )}
     </section>
   );
 }
