@@ -60,12 +60,6 @@ export default function Search() {
     };
   }, []);
 
-  const handleSidebarItemClick = () => {
-    if (isMobile) {
-      setIsOpen(false);
-    }
-  };
-
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -73,6 +67,7 @@ export default function Search() {
   const fetchPosts = async (urlParams) => {
     setLoading(true);
     const searchQuery = urlParams.toString();
+    console.log(searchQuery);
     const res = await fetchSearchPost(searchQuery);
     if (res.status !== 200) {
       setLoading(false);
@@ -81,7 +76,7 @@ export default function Search() {
     if (res.status === 200) {
       setPosts(res.data.posts);
       setLoading(false);
-      if (res.data.posts.length === 9) {
+      if (res.data.posts.length === 8) {
         setShowMore(true);
       } else {
         setShowMore(false);
@@ -168,7 +163,7 @@ export default function Search() {
     }
     if (res.status === 200) {
       setPosts([...posts, ...res.data.posts]);
-      if (res.data.posts.length <= 9) {
+      if (res.data.posts.length <= 8) {
         setShowMore(false);
       } else {
         setShowMore(true);
