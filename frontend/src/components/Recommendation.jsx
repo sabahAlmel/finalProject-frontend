@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { fetchMostRecommendPost } from "../db/fetchPost";
 import Slider from "react-slick";
-import { Spinner } from "flowbite-react";
+import Skeleton from "./Skeleton";
 
 function Recommendation() {
   const [recentPosts, setRecentPosts] = useState(null);
@@ -60,8 +60,10 @@ function Recommendation() {
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className="text-3xl mt-5 mb-10">Recommended</h1>
       {loading ? (
-        <div className="flex justify-center items-center mx-auto">
-          <Spinner size="xl" />
+        <div className="flex">
+          {[...Array(4)].map((_, index) => (
+            <Skeleton key={index} />
+          ))}
         </div>
       ) : (
         <Slider {...settings} className="xl:w-[83%] w-[95%] h-[370px] mx-auto">

@@ -1,4 +1,4 @@
-import { Button, Select, Spinner, TextInput } from "flowbite-react";
+import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
@@ -10,6 +10,7 @@ import { HiChevronDoubleUp } from "react-icons/hi";
 import icon from "../assets/icons/family.png";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
+import Skeleton from "../components/Skeleton";
 
 export default function Search() {
   const [formData, setFormData] = useState({
@@ -313,15 +314,11 @@ export default function Search() {
           {!loading && posts.length === 0 && (
             <p className="text-xl text-gray-500">No articles found.</p>
           )}
-          {loading && (
-            <div className="flex justify-center items-center min-h-screen mx-auto">
-              <Spinner size="xl" />
-            </div>
-          )}
+          {loading && [...Array(8)].map((_, index) => <Skeleton key={index} />)}
           {!loading &&
             posts &&
             posts.map((post) => <PostCard key={post._id} post={post} />)}
-          {showMore && (
+          {showMore && !loading && (
             <button
               onClick={handleShowMore}
               className="text-customMediumBlue text-lg hover:underline p-7 w-full"

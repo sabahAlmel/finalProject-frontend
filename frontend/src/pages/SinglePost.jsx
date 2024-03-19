@@ -1,8 +1,6 @@
-import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  fetchPostLimit,
   fetchPostSlug,
   fetchRecommendPost,
   fetchRecommendPostByCategory,
@@ -14,6 +12,7 @@ import { useSelector } from "react-redux";
 import icon from "../assets/icons/family.png";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
+import SinglePostSkeleton from "../components/SinglePostSkeleton";
 
 export default function SinglePost({ socket }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -94,12 +93,7 @@ export default function SinglePost({ socket }) {
     setVolumeClicked(!volumeClicked);
   };
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="xl" />
-      </div>
-    );
+  if (loading) return <SinglePostSkeleton />;
 
   const handleRecommendation = async (postId) => {
     try {
@@ -134,24 +128,6 @@ export default function SinglePost({ socket }) {
         <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
           {post && post.title}
         </h1>
-        {/* <div className="flex mx-auto w-40 justify-between">
-          <Link
-            to={`/search?category=${post && post.categoryId._id}`}
-            className="self-center mt-5"
-          >
-            <Button color="gray" pill size="xs">
-              {post && post.categoryId.range}
-            </Button>
-          </Link>
-          <Link
-            to={`/search?subcategory=${post && post.subCategoryId._id}`}
-            className="self-center mt-5"
-          >
-            <Button color="gray" pill size="xs">
-              {post && post.subCategoryId.name}
-            </Button>
-          </Link>
-        </div> */}
         <img
           src={post && post.image}
           alt={post && post.title}

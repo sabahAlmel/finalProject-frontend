@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { fetchPostLimit } from "../db/fetchPost";
-import { Spinner } from "flowbite-react";
+import Skeleton from "./Skeleton";
 
 function RecentPost() {
   const [recentPosts, setRecentPosts] = useState(null);
@@ -25,8 +25,10 @@ function RecentPost() {
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className="text-3xl mt-5 mb-5">Recent articles</h1>
       {loading ? (
-        <div className="flex justify-center items-center mx-auto">
-          <Spinner size="xl" />
+        <div className="flex flex-wrap gap-5 mt-5 justify-center">
+          {[...Array(12)].map((_, index) => (
+            <Skeleton key={index} />
+          ))}
         </div>
       ) : (
         <div className="flex flex-wrap gap-5 mt-5 justify-center">
