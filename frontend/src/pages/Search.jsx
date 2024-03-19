@@ -1,4 +1,4 @@
-import { Button, Select, TextInput } from "flowbite-react";
+import { Button, Select, Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
@@ -53,19 +53,10 @@ export default function Search() {
       }
     };
 
-    // const handleScroll = () => {
-    //   const currentScrollPos = window.pageYOffset;
-    //   if (currentScrollPos > 10) {
-    //     setIsOpen(false);
-    //   }
-    // };
-
     window.addEventListener("resize", handleResize);
-    // window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      // window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -327,7 +318,11 @@ export default function Search() {
           {!loading && posts.length === 0 && (
             <p className="text-xl text-gray-500">No articles found.</p>
           )}
-          {loading && <p className="text-xl text-gray-500">Loading...</p>}
+          {loading && (
+            <div className="flex justify-center items-center min-h-screen mx-auto">
+              <Spinner size="xl" />
+            </div>
+          )}
           {!loading &&
             posts &&
             posts.map((post) => <PostCard key={post._id} post={post} />)}
